@@ -15,7 +15,7 @@ const layout = ({ children }) => {
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={cn(font.className, "bg-white dark:bg-[#272726]")}>
+        <body className={cn(font.className, "bg-white dark:bg-[#161616]")}>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
