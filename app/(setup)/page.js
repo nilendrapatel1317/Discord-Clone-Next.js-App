@@ -9,13 +9,10 @@ const page = async () => {
 
   const server = await db.server.findFirst({
     where: {
-      members: {
-        some: {
-          profileId: profile.id,
-        },
-      },
+      profileId: profile.id,
     },
   });
+  // console.log(server + " from server first ");
 
   if (server) {
     return redirect(`/servers/${server.id}`);
