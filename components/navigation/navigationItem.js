@@ -15,7 +15,7 @@ export const NavigationItem = ({ id, imageUrl, name }) => {
   };
 
   return (
-    <Tooltip title="Add a server" placement="right">
+    <Tooltip title={name} placement="right">
       <button onClick={onClick} className="group relative flex items-center">
         <div
           className={cn(
