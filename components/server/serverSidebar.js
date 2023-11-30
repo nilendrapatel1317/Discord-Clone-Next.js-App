@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { ServerHeader } from "@/components/server/serverHeader";
 
 const serverSidebar = async ({ serverId }) => {
-  const profile = currentProfile();
+  const profile = await currentProfile();
   if (!profile) {
     return redirect("/");
   }
@@ -57,9 +57,9 @@ const serverSidebar = async ({ serverId }) => {
   }
 
   const role = server.members.find(
-    (member) => member.profileId !== profile.id
+    (member) => member.profileId === profile.id
   )?.role;
-  //   console.log(role)
+    // console.log(role) 
 
   return (
     <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">

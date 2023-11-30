@@ -7,7 +7,7 @@ import { currentProfile } from "@/lib/currentProfile";
 const InviteCodePage = async ({ params }) => {
   const profile = await currentProfile();
 
-  console.log(params.inviteCode)
+  // console.log(params.inviteCode)
   if (!profile) {
     return redirectToSignIn();
   }

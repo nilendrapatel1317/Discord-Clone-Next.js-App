@@ -25,7 +25,7 @@ export const ServerHeader = ({ server, role }) => {
 
   const isAdmin = role === MemberRole.ADMIN;
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
-
+  // console.log(isAdmin, isModerator);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none" asChild>
