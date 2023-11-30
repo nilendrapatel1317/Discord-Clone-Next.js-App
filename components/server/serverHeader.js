@@ -17,7 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { useModal } from "@/hooks/useModelStore";
+import { useModal } from "@/hooks/useModalStore";
 
 export const ServerHeader = ({ server, role }) => {
   // console.log(server, role);

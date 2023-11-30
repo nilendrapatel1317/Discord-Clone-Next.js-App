@@ -2,7 +2,7 @@ import React from "react";
 import { initialProfile } from "@/lib/initialProfile";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
-import InitialModel from "@/components/modals/initialModel";
+import {InitialModal} from "@/components/modals/initialModal";
 
 const page = async () => {
   const profile = await initialProfile();
@@ -25,7 +25,7 @@ const page = async () => {
     return redirect(`/servers/${server?.id || member?.serverId}`);
   }
 
-  return <InitialModel />;
+  return <InitialModal />;
 };
 
 export default page;

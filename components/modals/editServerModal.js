@@ -5,7 +5,6 @@ import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
 
 import {
   Dialog,
@@ -26,6 +25,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/FileUpload";
+import { useModal } from "../../hooks/useModalStore";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z.string().min(3, {
@@ -36,15 +37,14 @@ const formSchema = z.object({
   }),
 });
 
-const initialModel = () => {
-  const [isMounted, setIsMounted] = useState(false);
-
+export const EditServerModal = () => {
+  const {isOpen , onClose , type , data} = useModal();
   const router = useRouter();
+  
+  const isModalOpen = isOpen && type === "editServer";  
+  const {server} = data;
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
+  // console.log(server)
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,30 +53,40 @@ const initialModel = () => {
     },
   });
 
+  useEffect(() => {
+    if(server){
+      form.setValue("name" , server.name)
+      form.setValue("imageUrl" , server.imageUrl)
+    }
+  },[server , form])
+
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values) => {
     try {
-      const response = await axios.post("/api/servers", values);
-      const serverId = response.data.id; // Assuming your server API returns the server ID
+      const response = await axios.patch(`/api/servers/${server?.id}`, values);
+      const serverId = response.data.id;
   
       form.reset();
-      router.push(`/servers/${serverId}`);
+      // router.push(`/servers/${serverId}`);
+      router.refresh();
+      onClose();
     } catch (error) {
       console.error(error);
     }
   };
 
-  if (!isMounted) {
-    return null;
+  const handleClose = () => {
+    form.reset();
+    onClose();
   }
 
   return (
-    <Dialog open>
+    <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Customize your server
+            Edit your server
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
             Give your server a personality with a name and an image. You can
@@ -127,7 +137,7 @@ const initialModel = () => {
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
               <Button variant="primary" disabled={isLoading}>
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>
@@ -137,4 +147,4 @@ const initialModel = () => {
   );
 };
 
-export default initialModel;
+

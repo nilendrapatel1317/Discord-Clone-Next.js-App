@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import qs from "query-string";
-import { useModal } from "@/hooks/useModelStore";
+import { useModal } from "@/hooks/useModalStore";
 import { ScrollArea } from "../ui/scroll-area";
 import { UserAvatar } from "@/components/Extra/userAvatar";
 import { useState } from "react";

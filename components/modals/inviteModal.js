@@ -12,7 +12,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useModal } from "@/hooks/useModelStore";
+import { useModal } from "@/hooks/useModalStore";
 import { useOrigin } from "@/hooks/useOrigin";
 import axios from "axios";
 export const InviteModal = () => {

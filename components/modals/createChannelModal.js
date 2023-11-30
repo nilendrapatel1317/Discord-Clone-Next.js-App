@@ -25,8 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/FileUpload";
-import { useModal } from "../../hooks/useModelStore";
-import { useEffect } from "react";
+import { useModal } from "../../hooks/useModalStore";
 
 const formSchema = z.object({
   name: z.string().min(3, {
@@ -37,14 +36,12 @@ const formSchema = z.object({
   }),
 });
 
-export const EditServerModal = () => {
-  const {isOpen , onClose , type , data} = useModal();
+export const CreateChannelModal = () => {
+  const {isOpen , onClose , type} = useModal();
   const router = useRouter();
-  
-  const isModalOpen = isOpen && type === "editServer";  
-  const {server} = data;
 
-  // console.log(server)
+  const isModalOpen = isOpen && type === "createChannel";  
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,19 +50,12 @@ export const EditServerModal = () => {
     },
   });
 
-  useEffect(() => {
-    if(server){
-      form.setValue("name" , server.name)
-      form.setValue("imageUrl" , server.imageUrl)
-    }
-  },[server , form])
-
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values) => {
     try {
-      const response = await axios.patch(`/api/servers/${server?.id}`, values);
-      const serverId = response.data.id;
+      const response = await axios.post("/api/servers", values);
+      const serverId = response.data.id; // Assuming your server API returns the server ID
   
       form.reset();
       // router.push(`/servers/${serverId}`);
@@ -86,11 +76,10 @@ export const EditServerModal = () => {
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Edit your server
+            Create your server
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Give your server a personality with a name and an image. You can
-            always change it later.
+            Create a new server and invite your friends and message each other in real time, share files, chat in video or voice, and more.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -137,7 +126,7 @@ export const EditServerModal = () => {
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
               <Button variant="primary" disabled={isLoading}>
-                Save
+                Create
               </Button>
             </DialogFooter>
           </form>
