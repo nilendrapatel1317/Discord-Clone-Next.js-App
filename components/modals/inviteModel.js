@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/useModelStore";
 import { useOrigin } from "@/hooks/useOrigin";
 import axios from "axios";
-const InviteModel = () => {
+export const InviteModal = () => {
   const { onOpen, isOpen, onClose, type, data } = useModal();
   const origin = useOrigin();
 
@@ -91,4 +91,3 @@ const InviteModel = () => {
   );
 };
 
-export default InviteModel;

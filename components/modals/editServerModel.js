@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/FileUpload";
 import { useModal } from "../../hooks/useModelStore";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z.string().min(3, {
@@ -36,12 +37,14 @@ const formSchema = z.object({
   }),
 });
 
-export const CreateServerModal = () => {
-  const {isOpen , onClose , type} = useModal();
+export const EditServerModal = () => {
+  const {isOpen , onClose , type , data} = useModal();
   const router = useRouter();
+  
+  const isModalOpen = isOpen && type === "editServer";  
+  const {server} = data;
 
-  const isModalOpen = isOpen && type === "createServer";  
-
+  // console.log(server)
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,12 +53,19 @@ export const CreateServerModal = () => {
     },
   });
 
+  useEffect(() => {
+    if(server){
+      form.setValue("name" , server.name)
+      form.setValue("imageUrl" , server.imageUrl)
+    }
+  },[server , form])
+
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values) => {
     try {
-      const response = await axios.post("/api/servers", values);
-      const serverId = response.data.id; // Assuming your server API returns the server ID
+      const response = await axios.patch(`/api/servers/${server?.id}`, values);
+      const serverId = response.data.id;
   
       form.reset();
       // router.push(`/servers/${serverId}`);
@@ -76,10 +86,11 @@ export const CreateServerModal = () => {
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Create your server
+            Edit your server
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Create a new server and invite your friends and message each other in real time, share files, chat in video or voice, and more.
+            Give your server a personality with a name and an image. You can
+            always change it later.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -126,7 +137,7 @@ export const CreateServerModal = () => {
             </div>
             <DialogFooter className="bg-gray-100 px-6 py-4">
               <Button variant="primary" disabled={isLoading}>
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>
