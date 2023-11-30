@@ -6,8 +6,7 @@ import { currentProfile } from "@/lib/currentProfile";
 
 const InviteCodePage = async ({ params }) => {
   const profile = await currentProfile();
-
-  // console.log(params.inviteCode)
+  // console.log(profile)
   if (!profile) {
     return redirectToSignIn();
   }
@@ -15,20 +14,31 @@ const InviteCodePage = async ({ params }) => {
   if (!params.inviteCode) {
     return redirect("/");
   }
-
-  const existingServer = await db.server.findFirst({
+  // console.log(params.inviteCode)
+  const clickedServer = await db.server.findFirst({
     where: {
       inviteCode: params.inviteCode,
-      members: {
-        some: {
-          profileId: profile.id,
-        },
-      },
     },
-  });
+    include: {
+      members: true,
+    },
+  })
+  // console.log(clickedServer)
 
-  if (existingServer) {
-    return redirect(`/servers/${existingServer.id}`);
+  const existingMember = await db.member.findFirst({
+    where: {
+      profileId: profile.id,
+    },
+  })
+  // console.log(existingMember)
+
+  const memberExistInClickedServer = clickedServer.members.some(
+    (member) => member.profileId === profile.id
+  )
+  // console.log(memberExistInClickedServer)
+
+  if (memberExistInClickedServer) {
+    return redirect(`/servers/${clickedServer.id}`);
   }
 
   const server = await db.server.update({
@@ -45,6 +55,7 @@ const InviteCodePage = async ({ params }) => {
       },
     },
   });
+  // console.log(server)
 
   if (server) {
     return redirect(`/servers/${server.id}`);

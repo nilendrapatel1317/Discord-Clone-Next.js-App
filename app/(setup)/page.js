@@ -12,10 +12,17 @@ const page = async () => {
       profileId: profile.id,
     },
   });
-  // console.log(server + " from server first ");
+  // console.log(server )
 
-  if (server) {
-    return redirect(`/servers/${server.id}`);
+  const member = await db.member.findFirst({
+    where: {
+      profileId: profile.id,
+    },
+  });
+  // console.log(member )
+
+  if (server || member) {
+    return redirect(`/servers/${server?.id || member?.serverId}`);
   }
 
   return <InitialModel />;
