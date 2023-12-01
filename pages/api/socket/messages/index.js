@@ -1,5 +1,5 @@
-import { currentProfilePages } from "../../../lib/currentProfilePages";
-import { db } from "../../../lib/db";
+import { currentProfilePages } from "../../../../lib/currentProfilePages";
+import { db } from "../../../../lib/db";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {

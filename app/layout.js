@@ -5,6 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/themeProvider";
 import { ModalProvider } from "@/components/providers/modalProvider";
 import { SocketProvider } from "@/components/providers/socketProvider";
+import { QueryProvider } from "@/components/providers/queryProvider";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -27,7 +28,7 @@ const layout = ({ children }) => {
           >
             <SocketProvider>
               <ModalProvider />
-              {children}
+              <QueryProvider>{children}</QueryProvider>
             </SocketProvider>
           </ThemeProvider>
         </body>
