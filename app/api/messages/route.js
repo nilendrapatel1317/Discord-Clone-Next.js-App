@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { currentProfile } from "../../../lib/currentProfile";
 import { db } from "../../../lib/db";
 
-const MESSAGES_BATCH = 10;
+const MESSAGES_BATCH = 8;
 
 export async function GET(req, { params }) {
   try {
