@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { MemberRole } from "@prisma/client";
 
-import { currentProfile } from "../../../lib/currentProfile";
-import { db } from "../../../lib/db";
+import { currentProfile } from "@/lib/currentProfile";
+import { db } from "@/lib/db";
 
 export async function POST(req) {
   try {
