@@ -27,7 +27,7 @@ const roleIconMap = {
   [MemberRole.ADMIN]: <ShieldCheck className="h-4 w-4 mr-2 text-green-500" />,
 };
 
-const serverSidebar = async ({ serverId }) => {
+const ServerSidebar = async ({ serverId }) => {
   const profile = await currentProfile();
   if (!profile) {
     return redirect("/");
@@ -202,4 +202,4 @@ const serverSidebar = async ({ serverId }) => {
   );
 };
 
-export default serverSidebar;
+export default ServerSidebar;
