@@ -37,9 +37,9 @@ import {
 import { useRouter } from "next/navigation";
 
 const roleIconMap = {
-  GUEST: null,
-  MODERATOR: <ShieldCheck className="h-4 w-4 ml-2 text-indigo-500" />,
-  ADMIN: <ShieldAlert className="h-4 w-4 text-rose-500" />,
+  GUEST: <Shield className="h-4 w-4 ml-2 text-red-500" />,
+  MODERATOR: <ShieldAlert className="h-4 w-4 ml-2 text-yellow-500" />,
+  ADMIN: <ShieldCheck className="h-4 w-4 text-green-500" />,
 };
 export const MembersModal = () => {
   const router = useRouter();
@@ -143,7 +143,7 @@ export const MembersModal = () => {
                                   onRoleChange(member.id, "MODERATOR")
                                 }
                               >
-                                <ShieldCheck className="h-4 w-4 mr-2" />
+                                <ShieldAlert className="h-4 w-4 mr-2" />
                                 Moderator
                                 {member.role === "MODERATOR" && (
                                   <Check className="h-4 w-4 ml-auto" />

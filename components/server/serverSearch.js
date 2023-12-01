@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/command";
 
 export const ServerSearch = ({ data }) => {
-  console.log(data)
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const params = useParams();

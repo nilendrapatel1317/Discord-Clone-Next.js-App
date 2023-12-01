@@ -1,4 +1,4 @@
-import { Hash, Mic, ShieldAlert, ShieldCheck, User, Video } from "lucide-react";
+import { Hash, Mic, Shield, ShieldAlert, ShieldCheck, User, Video } from "lucide-react";
 import { redirect } from "next/navigation";
 import { ChannelType, MemberRole } from "@prisma/client";
 import { currentProfile } from "@/lib/currentProfile";
@@ -9,6 +9,9 @@ import { Separator } from "@/components/ui/separator";
 
 import { ServerHeader } from "@/components/server/serverHeader";
 import { ServerSearch } from "@/components/server/serverSearch";
+import { ServerSection } from "@/components/server/serverSection";
+import { ServerChannel } from "@/components/server/serverChannel";
+import { ServerMember } from "@/components/server/serverMember";
 
 const iconMap = {
   [ChannelType.TEXT]: <Hash className="mr-2 h-4 w-4" />,
@@ -17,11 +20,11 @@ const iconMap = {
 };
 
 const roleIconMap = {
-  [MemberRole.GUEST]: <User className="h-4 w-4 mr-2" />,
+  [MemberRole.GUEST]: <Shield className="h-4 w-4 mr-2 text-red-500" />,
   [MemberRole.MODERATOR]: (
-    <ShieldCheck className="h-4 w-4 mr-2 text-indigo-500" />
+    <ShieldAlert className="h-4 w-4 mr-2 text-yellow-500" />
   ),
-  [MemberRole.ADMIN]: <ShieldAlert className="h-4 w-4 mr-2 text-rose-500" />,
+  [MemberRole.ADMIN]: <ShieldCheck className="h-4 w-4 mr-2 text-green-500" />,
 };
 
 const serverSidebar = async ({ serverId }) => {
@@ -119,7 +122,7 @@ const serverSidebar = async ({ serverId }) => {
           />
         </div>
         <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
-        {/* {!!textChannels?.length && (
+        {!!textChannels?.length && (
           <div className="mb-2">
             <ServerSection
               sectionType="channels"
@@ -193,7 +196,7 @@ const serverSidebar = async ({ serverId }) => {
               ))}
             </div>
           </div>
-        )} */}
+        )}
       </ScrollArea>
     </div>
   );
