@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavigationItem } from "@/components/navigation/navigationItem";
 import { UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/theme/ModeToggle";
+import { Tooltip } from "@mui/material";
 
 export const NavigationSidebar = async () => {
   const profile = await currentProfile();
@@ -29,7 +30,7 @@ export const NavigationSidebar = async () => {
   //     }
   //   }
   // });
-  
+
   const servers = await db.server.findMany({
     include: {
       members: true,
@@ -79,15 +80,23 @@ export const NavigationSidebar = async () => {
         ))}
       </ScrollArea>
       <div className="pb-3 mt-auto flex items-center flex-col gap-y-4">
-        <ModeToggle />
-        <UserButton
-          afterSignOutUrl="/sign-in"
-          appearance={{
-            elements: {
-              avatarBox: "h-[48px] w-[48px]",
-            },
-          }}
-        />
+        <Tooltip title="Switch Theme" placement="right">
+          <div>
+            <ModeToggle />
+          </div>
+        </Tooltip>
+        <Tooltip title="Your Account" placement="right">
+          <div>
+            <UserButton
+              afterSignOutUrl="/sign-in"
+              appearance={{
+                elements: {
+                  avatarBox: "h-[48px] w-[48px]",
+                },
+              }}
+            />
+          </div>
+        </Tooltip>
       </div>
     </div>
   );

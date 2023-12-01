@@ -1,15 +1,34 @@
+import { Hash, Mic, ShieldAlert, ShieldCheck, User, Video } from "lucide-react";
+import { redirect } from "next/navigation";
+import { ChannelType, MemberRole } from "@prisma/client";
 import { currentProfile } from "@/lib/currentProfile";
 import { db } from "@/lib/db";
-import { ChannelType } from "@prisma/client";
-import { redirect } from "next/navigation";
+
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+
 import { ServerHeader } from "@/components/server/serverHeader";
+import { ServerSearch } from "@/components/server/serverSearch";
+
+const iconMap = {
+  [ChannelType.TEXT]: <Hash className="mr-2 h-4 w-4" />,
+  [ChannelType.AUDIO]: <Mic className="mr-2 h-4 w-4" />,
+  [ChannelType.VIDEO]: <Video className="mr-2 h-4 w-4" />,
+};
+
+const roleIconMap = {
+  [MemberRole.GUEST]: <User className="h-4 w-4 mr-2" />,
+  [MemberRole.MODERATOR]: (
+    <ShieldCheck className="h-4 w-4 mr-2 text-indigo-500" />
+  ),
+  [MemberRole.ADMIN]: <ShieldAlert className="h-4 w-4 mr-2 text-rose-500" />,
+};
 
 const serverSidebar = async ({ serverId }) => {
   const profile = await currentProfile();
   if (!profile) {
     return redirect("/");
   }
-  //   console.log(serverId + " from server sidebar");
 
   const server = await db.server.findUnique({
     where: {
@@ -32,8 +51,6 @@ const serverSidebar = async ({ serverId }) => {
     },
   });
 
-  //   console.log(server)
-
   const textChannels = server?.channels.filter(
     (channel) => channel.type === ChannelType.TEXT
   );
@@ -47,11 +64,6 @@ const serverSidebar = async ({ serverId }) => {
     (member) => member.profileId !== profile.id
   );
 
-  //   console.log(textChannels)
-  //   console.log(audioChannels)
-  //   console.log(videoChannels)
-  //   console.log(members)
-
   if (!server) {
     return redirect("/");
   }
@@ -59,12 +71,11 @@ const serverSidebar = async ({ serverId }) => {
   const role = server.members.find(
     (member) => member.profileId === profile.id
   )?.role;
-    // console.log(role) 
 
   return (
     <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
       <ServerHeader server={server} role={role} />
-      {/* <ScrollArea className="flex-1 px-3">
+      <ScrollArea className="flex-1 px-3">
         <div className="mt-2">
           <ServerSearch
             data={[
@@ -108,7 +119,7 @@ const serverSidebar = async ({ serverId }) => {
           />
         </div>
         <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
-        {!!textChannels?.length && (
+        {/* {!!textChannels?.length && (
           <div className="mb-2">
             <ServerSection
               sectionType="channels"
@@ -182,8 +193,8 @@ const serverSidebar = async ({ serverId }) => {
               ))}
             </div>
           </div>
-        )}
-      </ScrollArea> */}
+        )} */}
+      </ScrollArea>
     </div>
   );
 };
