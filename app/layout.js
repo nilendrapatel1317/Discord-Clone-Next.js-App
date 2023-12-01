@@ -1,9 +1,10 @@
-import { Open_Sans } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { Open_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/themeProvider";
 import { ModalProvider } from "@/components/providers/modalProvider";
-import { cn } from "@/lib/utils";
+import { SocketProvider } from "@/components/providers/socketProvider";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -24,8 +25,10 @@ const layout = ({ children }) => {
             // disableTransitionOnChange
             storageKey="discord-theme"
           >
-            <ModalProvider />
-            {children}
+            <SocketProvider>
+              <ModalProvider />
+              {children}
+            </SocketProvider>
           </ThemeProvider>
         </body>
       </html>

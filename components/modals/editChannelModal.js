@@ -32,7 +32,6 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import FileUpload from "@/components/FileUpload";
 import { useModal } from "../../hooks/useModalStore";
 import { ChannelType } from "@prisma/client";
 import { useEffect } from "react";

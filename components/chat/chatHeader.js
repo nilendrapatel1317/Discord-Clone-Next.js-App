@@ -1,8 +1,8 @@
 import { Hash } from "lucide-react";
 
-import { MobileToggle } from "../theme/mobileToggle";
-import { UserAvatar } from "../Extra/userAvatar";
-// import { SocketIndicator } from "@/components/socket-indicator";
+import { MobileToggle } from "@/components/theme/mobileToggle";
+import { UserAvatar } from "@/components/Extra/userAvatar";
+import { SocketIndicator } from "@/components/Extra/socketIndicator";
 
 // import { ChatVideoButton } from "./chat-video-button";
 
@@ -17,10 +17,10 @@ export const ChatHeader = ({ serverId, name, type, imageUrl }) => {
         <UserAvatar src={imageUrl} className="h-8 w-8 md:h-8 md:w-8 mr-2" />
       )}
       <p className="font-semibold text-md text-black dark:text-white">{name}</p>
-      {/* <div className="ml-auto flex items-center">
-        {type === "conversation" && <ChatVideoButton />}
+      <div className="ml-auto flex items-center">
+        {/* {type === "conversation" && <ChatVideoButton />} */}
         <SocketIndicator />
-      </div> */}
+      </div>
     </div>
   );
 };

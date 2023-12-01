@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import FileUpload from "@/components/FileUpload";
+import FileUpload from "@/components/Extra/FileUpload";
 import { useModal } from "../../hooks/useModalStore";
 import { useEffect } from "react";
 
