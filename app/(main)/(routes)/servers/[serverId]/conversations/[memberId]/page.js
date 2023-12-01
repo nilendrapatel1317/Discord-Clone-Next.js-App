@@ -5,9 +5,9 @@ import { db } from "@/lib/db";
 import { getOrCreateConversation } from "@/lib/conversation";
 import { currentProfile } from "@/lib/currentProfile";
 import { ChatHeader } from "@/components/chat/chatHeader";
-// import { ChatMessages } from "@/components/chat/chat-messages";
-// import { ChatInput } from "@/components/chat/chat-input";
-// import { MediaRoom } from "@/components/media-room";
+import { ChatMessages } from "@/components/chat/chatMessages";
+import { ChatInput } from "@/components/chat/chatInput";
+
 
 const MemberIdPage = async ({ params, searchParams }) => {
   const profile = await currentProfile();
@@ -55,7 +55,7 @@ const MemberIdPage = async ({ params, searchParams }) => {
       {/* {searchParams.video && (
         <MediaRoom chatId={conversation.id} video={true} audio={true} />
       )} */}
-      {/* {!searchParams.video && (
+      {!searchParams.video && (
         <>
           <ChatMessages
             member={currentMember}
@@ -79,7 +79,7 @@ const MemberIdPage = async ({ params, searchParams }) => {
             }}
           />
         </>
-      )} */}
+      )}
     </div>
   );
 };
