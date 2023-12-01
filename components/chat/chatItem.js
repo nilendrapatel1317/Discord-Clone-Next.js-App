@@ -49,7 +49,6 @@ export const ChatItem = ({
   socketQuery,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
   const { onOpen } = useModal();
   const params = useParams();
   const router = useRouter();
@@ -221,14 +220,14 @@ export const ChatItem = ({
       {canDeleteMessage && (
         <div className="hidden group-hover:flex items-center gap-x-3 absolute p-1 top-0 right-3 bg-white dark:bg-zinc-800 border rounded-sm">
           {canEditMessage && (
-            <Tooltip title="Edit">
+            <Tooltip title="Edit" placement="top">
               <Edit
                 onClick={() => setIsEditing(true)}
                 className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
               />
             </Tooltip>
           )}
-          <Tooltip title="Delete">
+          <Tooltip title="Delete" placement="top">
             <Trash
               onClick={() =>
                 onOpen("deleteMessage", {
