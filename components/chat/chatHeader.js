@@ -4,7 +4,8 @@ import { MobileToggle } from "@/components/theme/mobileToggle";
 import { UserAvatar } from "@/components/Extra/userAvatar";
 import { SocketIndicator } from "@/components/Extra/socketIndicator";
 
-// import { ChatVideoButton } from "./chat-video-button";
+import { ChatVideoButton } from "./chatVideoButton";
+
 
 export const ChatHeader = ({ serverId, name, type, imageUrl }) => {
   return (
@@ -18,7 +19,7 @@ export const ChatHeader = ({ serverId, name, type, imageUrl }) => {
       )}
       <p className="font-semibold text-md text-black dark:text-white">{name}</p>
       <div className="ml-auto flex items-center">
-        {/* {type === "conversation" && <ChatVideoButton />} */}
+        {type === "conversation" && <ChatVideoButton />}
         <SocketIndicator />
       </div>
     </div>

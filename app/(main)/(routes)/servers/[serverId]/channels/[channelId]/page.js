@@ -6,9 +6,12 @@ import { ChatHeader } from "../../../../../../../components/chat/chatHeader";
 import { ChannelType } from "@prisma/client";
 import { ChatInput } from "@/components/chat/chatInput";
 import { ChatMessages } from "@/components/chat/chatMessages";
+import { MediaRoom } from "@/components/Extra/media-room";
+
 
 const ChannelIdPage = async ({ params }) => {
   const profile = await currentProfile();
+  
 
   if (!profile) {
     return redirectToSignIn();
@@ -65,7 +68,7 @@ const ChannelIdPage = async ({ params }) => {
           />
         </>
       )}
-      {/* {channel.type === ChannelType.AUDIO && (
+      {channel.type === ChannelType.AUDIO && (
         <MediaRoom
           chatId={channel.id}
           video={false}
@@ -78,7 +81,7 @@ const ChannelIdPage = async ({ params }) => {
           video={true}
           audio={true}
         />
-      )} */}
+      )}
     </div>
   );
 };
