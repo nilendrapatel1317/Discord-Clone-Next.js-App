@@ -48,30 +48,30 @@ export const ChatMessages = ({
   //   count: data?.pages?.[0]?.items?.length ?? 0,
   // });
 
-  if (status === "loading") {
-    return (
-      <div className="flex flex-col flex-1 justify-center items-center">
-        <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4" />
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">
-          Loading messages...
-        </p>
-      </div>
-    );
-  }
+  // if (status === "loading") {
+  //   return (
+  //     <div className="flex flex-col flex-1 justify-center items-center">
+  //       <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4" />
+  //       <p className="text-xs text-zinc-500 dark:text-zinc-400">
+  //         Loading messages...
+  //       </p>
+  //     </div>
+  //   );
+  // }
 
-  if (status === "error") {
-    return (
-      <div className="flex flex-col flex-1 justify-center items-center">
-        <ServerCrash className="h-7 w-7 text-zinc-500 my-4" />
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">
-          Something went wrong!
-        </p>
-      </div>
-    );
-  }
+  // if (status === "error") {
+  //   return (
+  //     <div className="flex flex-col flex-1 justify-center items-center">
+  //       <ServerCrash className="h-7 w-7 text-zinc-500 my-4" />
+  //       <p className="text-xs text-zinc-500 dark:text-zinc-400">
+  //         Something went wrong!
+  //       </p>
+  //     </div>
+  //   );
+  // }
 
   return (
-    <div className="flex-1 flex flex-col py-4 overflow-y-auto bg-[#212121]">
+    <div className="flex-1 flex flex-col py-4 overflow-y-auto">
       Future Chat Messages
       {/* {!hasNextPage && <div className="flex-1" />}
       {!hasNextPage && <ChatWelcome type={type} name={name} />}

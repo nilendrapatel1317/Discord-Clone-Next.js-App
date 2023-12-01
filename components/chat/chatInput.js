@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useModal } from "@/hooks/useModalStore";
-// import { EmojiPicker } from "@/components/emoji-picker";
+import { EmojiPicker } from "@/components/Extra/emojiPicker";
 
 const formSchema = z.object({
   content: z.string().min(1),
@@ -72,12 +72,11 @@ export const ChatInput = ({ apiUrl, query, name, type }) => {
                     {...field}
                   />
                   <div className="absolute top-7 right-8">
-                    😊
-                    {/* <EmojiPicker
+                    <EmojiPicker
                       onChange={(emoji) =>
                         field.onChange(`${field.value} ${emoji}`)
                       }
-                    /> */}
+                    />
                   </div>
                 </div>
               </FormControl>

@@ -12,7 +12,7 @@ const roleIconMap = {
   [MemberRole.MODERATOR]: (
     <ShieldAlert className="h-4 w-4 ml-2 text-yellow-500" />
   ),
-  [MemberRole.ADMIN]: <ShieldCheck className="h-4 w-4 text-green-500" />,
+  [MemberRole.ADMIN]: <ShieldCheck className="h-4 w-4 ml-2 text-green-500" />,
 };
 
 export const ServerMember = ({ member }) => {

@@ -12,7 +12,7 @@ const page = async () => {
       profileId: profile.id,
     },
   });
-  // console.log(server )
+  console.log(server )
 
   const member = await db.member.findFirst({
     where: {
