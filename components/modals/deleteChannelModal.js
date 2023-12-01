@@ -41,9 +41,9 @@ export const DeleteChannelModal = () => {
 
       await axios.delete(url);
 
-      onClose();
-      router.refresh();
       router.push(`/servers/${server?.id}`);
+      router.refresh();
+      onClose();
     } catch (error) {
       console.log(error);
     } finally {
@@ -60,7 +60,7 @@ export const DeleteChannelModal = () => {
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
             Are you sure you want to do this? <br />
-            <span className="text-indigo-500 font-semibold">{server?.name}</span> will be permanently deleted.
+            <span className="text-indigo-500 font-semibold">#{channel?.name}</span> will be permanently deleted.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="bg-gray-100 px-6 py-4">
