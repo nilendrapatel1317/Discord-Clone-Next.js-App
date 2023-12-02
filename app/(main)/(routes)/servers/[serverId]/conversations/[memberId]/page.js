@@ -8,7 +8,7 @@ import { ChatHeader } from "@/components/chat/chatHeader";
 import { ChatMessages } from "@/components/chat/chatMessages";
 import { ChatInput } from "@/components/chat/chatInput";
 import { MediaRoom } from "@/components/Extra/media-room";
-
+import { currentProfilePages } from "@/lib/currentProfilePages";
 
 const MemberIdPage = async ({ params, searchParams }) => {
   const profile = await currentProfile();
@@ -85,4 +85,33 @@ const MemberIdPage = async ({ params, searchParams }) => {
   );
 };
 
+export async function generateMetadata({ params }) {
+  const server = await db.server.findUnique({
+    where: {
+      id: params.serverId,
+    },
+  });
+  const serverName = server.name;
+
+  const currentMember = await db.member.findFirst({
+    where: {
+      serverId: params.serverId,
+    },
+    include: {
+      profile: true,
+    },
+  });
+  const conversation = await getOrCreateConversation(
+    currentMember.id,
+    params.memberId
+  );
+  const { memberOne, memberTwo } = conversation;
+
+  const otherMember =
+    memberOne.profileId === currentMember.id ? memberOne : memberTwo;
+
+  return {
+    title: `Discord | ${serverName} | ${otherMember.profile.name || "Member Chat Room"} `,
+  };
+}
 export default MemberIdPage;

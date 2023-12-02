@@ -1,8 +1,15 @@
 import { currentProfile } from "@/lib/currentProfile";
 import { db } from "@/lib/db";
 import { redirectToSignIn } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import ServerSidebar from "@/components/server/serverSidebar";
+
+
+
+function pathName() {
+  
+}
+pathName()
 const layout = async ({ children, params }) => {
   const profile = currentProfile();
   if (!profile) {
@@ -37,5 +44,19 @@ const layout = async ({ children, params }) => {
     </div>
    );
 };
+
+export async function generateMetadata({ params }) {
+  const server = await db.server.findUnique({
+    where: {
+      id: params.serverId,
+    },
+  });
+
+  const serverName = server.name;
+  return {
+    title: `Discord | ${serverName} `,
+    
+  }
+}
 
 export default layout;

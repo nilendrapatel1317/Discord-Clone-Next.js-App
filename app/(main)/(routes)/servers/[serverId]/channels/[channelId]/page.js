@@ -86,4 +86,22 @@ const ChannelIdPage = async ({ params }) => {
   );
 };
 
+export async function generateMetadata({ params }) {
+  const channel = await db.channel.findUnique({
+    where: {
+      id: params.channelId,
+    },
+    include: {
+      server: true,
+    },
+  });
+
+  const serverName = channel.server.name;
+  const channelName = channel.name;
+  return {
+    title: `Discord | ${serverName} | ${channelName}`,
+    
+  }
+}
+
 export default ChannelIdPage;
