@@ -12,7 +12,7 @@ export const SocketIndicator = () => {
         variant="outline" 
         className="bg-yellow-600 text-white border-none"
       >
-        Fallback: Polling every 1s
+        Offline: Page Refresh every 1s
       </Badge>
     )
   }
