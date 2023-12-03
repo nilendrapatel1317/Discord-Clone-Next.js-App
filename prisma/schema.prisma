@@ -18,6 +18,7 @@ model Profile {
   name String
   imageUrl String
   email String
+  username String? @default("")
 
   servers Server[]
   members Member[]
