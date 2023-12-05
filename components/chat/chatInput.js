@@ -12,6 +12,7 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useModal } from "@/hooks/useModalStore";
 import { EmojiPicker } from "@/components/Extra/emojiPicker";
+import { Tooltip } from "@mui/material";
 
 const formSchema = z.object({
   content: z.string().min(1),
@@ -56,20 +57,15 @@ export const ChatInput = ({ apiUrl, query, name, type }) => {
             <FormItem>
               <FormControl>
                 <div className="relative p-4 pb-6">
-                  <div className="absolute top-7 right-16">
-                    <EmojiPicker
-                      onChange={(emoji) =>
-                        field.onChange(`${field.value} ${emoji}`)
-                      }
-                    />
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => onOpen("messageFile", { apiUrl, query })}
-                    className="absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
-                  >
-                    <Plus className="text-white dark:text-[#313338]" />
-                  </button>
+                  <Tooltip title="Attach File" placement="top">
+                    <button
+                      type="button"
+                      onClick={() => onOpen("messageFile", { apiUrl, query })}
+                      className="absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
+                    >
+                      <Plus className="text-white dark:text-[#313338]" />
+                    </button>
+                  </Tooltip>
                   <Input
                     disabled={isLoading}
                     className="ps-14 pe-[80px] py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
@@ -78,6 +74,13 @@ export const ChatInput = ({ apiUrl, query, name, type }) => {
                     }`}
                     {...field}
                   />
+                  <div className="absolute top-7 right-16">
+                    <EmojiPicker
+                      onChange={(emoji) =>
+                        field.onChange(`${field.value} ${emoji}`)
+                      }
+                    />
+                  </div>
                   <button
                     type="submit"
                     className="absolute top-7 right-8 text-zinc-400 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition"

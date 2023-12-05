@@ -129,7 +129,9 @@ export const ChatItem = ({
 
       const link = document.createElement("a");
       link.href = url;
-      link.download = `Discord-Next-App-Nilendra-Patel-${uuidv4()}.${type === "pdf"?"pdf":"jpg"}`;
+      link.download = `Discord-Next-App-Nilendra-Patel-${uuidv4()}.${
+        type === "pdf" ? "pdf" : "jpg"
+      }`;
       link.click();
 
       URL.revokeObjectURL(url);
@@ -178,9 +180,11 @@ export const ChatItem = ({
                 />
               </a>
               <div className="cursor-pointer text-zinc-600 dark:text-zinc-200 p-1 rounded-sm bg-zinc-100 hover:bg-white dark:bg-zinc-700 ">
-                <button onClick={() => handleDownload(fileUrl, "image")}>
-                  <Download className="h-5 w-5" />
-                </button>
+                <Tooltip title="Download Photo" placement="top">
+                  <button onClick={() => handleDownload(fileUrl, "image")}>
+                    <Download className="h-5 w-5" />
+                  </button>
+                </Tooltip>
               </div>
             </div>
           )}
@@ -196,9 +200,11 @@ export const ChatItem = ({
                 PDF File
               </a>
               <div className="ml-4 cursor-pointer text-zinc-600 dark:text-zinc-200 p-1 rounded-sm bg-zinc-100 hover:bg-white dark:bg-zinc-700 ">
-                <button onClick={() => handleDownload(fileUrl, "pdf")}>
-                  <Download className="h-5 w-5" />
-                </button>
+                <Tooltip title="Download PDF" placement="top">
+                  <button onClick={() => handleDownload(fileUrl, "pdf")}>
+                    <Download className="h-5 w-5" />
+                  </button>
+                </Tooltip>
               </div>
             </div>
           )}

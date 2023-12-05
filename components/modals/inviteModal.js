@@ -97,7 +97,7 @@ export const InviteModal = () => {
               <Link href={"https://7labs.io/a/whatsapp-direct"} target="_blank" className="flex">
                 <Share2 className="w-4 h-4 mr-3" />
                 Send link via WhatsApp 
-              </Link><span className="text-xs ml-3 text-rose-500">(Please copy the link)</span>
+              </Link><span className="text-xs ml-3 text-rose-500">(Please first copy the link)</span>
             </Button>
             <Button
               onClick={onNew}
