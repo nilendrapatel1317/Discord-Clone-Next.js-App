@@ -1,13 +1,12 @@
 "use client";
 
 import { format } from "date-fns";
-import { Fragment, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { Loader2, ServerCrash } from "lucide-react";
 import { useChatQuery } from "@/hooks/useChatQuery";
 import { ChatWelcome } from "@/components/chat/chatWelcome";
 import { ChatItem } from "@/components/chat/chatItem";
 import { useChatSocket } from "@/hooks/useChatSocket";
-import { useChatScroll } from "@/hooks/useChatScroll";
 import Image from "next/image";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
@@ -30,21 +29,24 @@ export const ChatMessages = ({
   const chatRef = useRef(null);
   const bottomRef = useRef(null);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
-    useChatQuery({
-      queryKey,
-      apiUrl,
-      paramKey,
-      paramValue,
-    });
-  useChatSocket({ queryKey, addKey, updateKey });
-  useChatScroll({
-    chatRef,
-    bottomRef,
-    loadMore: fetchNextPage,
-    shouldLoadMore: !isFetchingNextPage && !!hasNextPage,
-    count: data?.pages?.[0]?.items?.length ?? 0,
+  const { data, status } = useChatQuery({
+    queryKey,
+    apiUrl,
+    paramKey,
+    paramValue,
   });
+  useChatSocket({ queryKey, addKey, updateKey });
+
+  useEffect(() => {
+    // Scroll to bottom whenever new messages are received
+    scrollToBottom();
+  }, [data]);
+
+  const scrollToBottom = () => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   if (status === "loading") {
     return (
@@ -70,22 +72,7 @@ export const ChatMessages = ({
 
   return (
     <div ref={chatRef} className="relative flex-1 flex flex-col py-4 overflow-y-auto">
-      {!hasNextPage && <div className="flex-1" />}
-      {!hasNextPage && <ChatWelcome type={type} name={name} />}
-      {hasNextPage && (
-        <div className="flex justify-center">
-          {isFetchingNextPage ? (
-            <Loader2 className="h-6 w-6 text-zinc-500 animate-spin my-4" />
-          ) : (
-            <button
-              onClick={() => fetchNextPage()}
-              className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 text-xs my-4 dark:hover:text-zinc-300 transition"
-            >
-              Load previous messages
-            </button>
-          )}
-        </div>
-      )}
+      {data && <ChatWelcome type={type} name={name} />}
       <div className="flex flex-col-reverse mt-auto">
         {data?.pages?.map((group, i) => (
           <Fragment key={i}>
@@ -108,7 +95,6 @@ export const ChatMessages = ({
         ))}
       </div>
       <div ref={bottomRef} />
-
 
       <div className="fixed top-0 left-0 w-full h-full  flex items-center justify-center pointer-events-none">
         <Image src={'/appLogo.png'} alt="App Logo" width={500} height={500} className="sm:ml-64 opacity-5 dark:invert"/>

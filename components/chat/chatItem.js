@@ -141,7 +141,7 @@ export const ChatItem = ({
   };
 
   return (
-    <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
+    <div className=" relative group flex items-center hover:bg-black/5 p-4 transition w-full">
       <div className="group flex gap-x-2 items-start w-full">
         <div
           onClick={onMemberClick}
