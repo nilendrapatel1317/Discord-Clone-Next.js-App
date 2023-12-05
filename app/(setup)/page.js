@@ -7,7 +7,7 @@ import { InitialModal } from "@/components/modals/initialModal";
 const page = async () => {
   const profile = await initialProfile();
 
-  console.log(profile);
+  // console.log(profile);
 
   // const updateProfile = await db.profile.update({
   //   where: {
