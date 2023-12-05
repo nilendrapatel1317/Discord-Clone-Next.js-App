@@ -5,9 +5,10 @@ import { NavigationAction } from "./navigationAction";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavigationItem } from "@/components/navigation/navigationItem";
-import { UserButton } from "@clerk/nextjs";
+import { SignOutButton, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/theme/ModeToggle";
 import { Tooltip } from "@mui/material";
+import { PowerIcon } from "lucide-react";
 
 export const NavigationSidebar = async () => {
   const profile = await currentProfile();
@@ -62,8 +63,6 @@ export const NavigationSidebar = async () => {
     })
     .filter((server) => server.members.length > 0);
 
-  
-
   return (
     <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] bg-[#E3E5E8] py-3">
       <NavigationAction />
@@ -85,7 +84,12 @@ export const NavigationSidebar = async () => {
             <ModeToggle />
           </div>
         </Tooltip>
-        <Tooltip title="Your Account" placement="right">
+        <SignOutButton className="cursor-pointer" appearance={{}}>
+          <Tooltip title="Sign Out" placement="right">
+            <PowerIcon />
+          </Tooltip>
+        </SignOutButton>
+        {/* <Tooltip title="Your Account" placement="right">
           <div>
             <UserButton
               afterSignOutUrl="/sign-in"
@@ -96,7 +100,7 @@ export const NavigationSidebar = async () => {
               }}
             />
           </div>
-        </Tooltip>
+        </Tooltip> */}
       </div>
     </div>
   );
