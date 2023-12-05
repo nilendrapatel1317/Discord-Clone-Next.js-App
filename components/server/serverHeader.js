@@ -38,7 +38,7 @@ export const ServerHeader = ({ server, role }) => {
         {isModerator && (
           <DropdownMenuItem
             onClick={() => onOpen("invite", { server })}
-            className="text-emerald-600 dark:text-emerald-400 px-3 py-2 text-sm cursor-pointer"
+            className="text-emerald-400 hover:text-emerald-500 dark:text-emerald-400 px-3 py-2 text-sm cursor-pointer"
           >
             Invite People
             <UserPlus className="h-4 w-4 ml-auto" />

@@ -90,7 +90,7 @@ export const InviteModal = () => {
             </Button>
             <Button
               disabled={isLoading}
-              variant="default"
+              variant="link"
               size="sm"
               className="text-sm text-zinc-500"
             >

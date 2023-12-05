@@ -1,6 +1,7 @@
 "use client";
 
 import * as z from "zod";
+import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import qs from "query-string";
 import { Tooltip } from "@mui/material";
@@ -8,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Member, MemberRole, Profile } from "@prisma/client";
 import {
+  Download,
   Edit,
   FileIcon,
   Shield,
@@ -55,7 +57,7 @@ export const ChatItem = ({
 
   const onMemberClick = () => {
     if (member.id === currentMember.id) {
-      return; 
+      return;
     }
 
     router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
@@ -114,6 +116,28 @@ export const ChatItem = ({
   const isPDF = fileType === "pdf" && fileUrl;
   const isImage = !isPDF && fileUrl;
 
+  const handleDownload = async (item, type) => {
+    // console.log(item, type);
+
+    try {
+      const response = await axios.get(item, {
+        responseType: "blob",
+      });
+      const blobType = type === "pdf" ? "application/pdf" : "image/jpeg";
+      const blob = new Blob([response.data], { type: blobType });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `Discord-Next-App-Nilendra-Patel-${uuidv4()}.${type === "pdf"?"pdf":"jpg"}`;
+      link.click();
+
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
       <div className="group flex gap-x-2 items-start w-full">
@@ -139,19 +163,26 @@ export const ChatItem = ({
             </span>
           </div>
           {isImage && (
-            <a
-              href={fileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48"
-            >
-              <Image
-                src={fileUrl}
-                alt={content}
-                fill
-                className="object-cover"
-              />
-            </a>
+            <div className="flex items-center gap-3">
+              <a
+                href={fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48"
+              >
+                <Image
+                  src={fileUrl}
+                  alt={content}
+                  fill
+                  className="object-cover"
+                />
+              </a>
+              <div className="cursor-pointer text-zinc-600 dark:text-zinc-200 p-1 rounded-sm bg-zinc-100 hover:bg-white dark:bg-zinc-700 ">
+                <button onClick={() => handleDownload(fileUrl, "image")}>
+                  <Download className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
           )}
           {isPDF && (
             <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
@@ -164,6 +195,11 @@ export const ChatItem = ({
               >
                 PDF File
               </a>
+              <div className="ml-4 cursor-pointer text-zinc-600 dark:text-zinc-200 p-1 rounded-sm bg-zinc-100 hover:bg-white dark:bg-zinc-700 ">
+                <button onClick={() => handleDownload(fileUrl, "pdf")}>
+                  <Download className="h-5 w-5" />
+                </button>
+              </div>
             </div>
           )}
           {!fileUrl && !isEditing && (
