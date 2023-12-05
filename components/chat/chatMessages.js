@@ -8,6 +8,7 @@ import { ChatWelcome } from "@/components/chat/chatWelcome";
 import { ChatItem } from "@/components/chat/chatItem";
 import { useChatSocket } from "@/hooks/useChatSocket";
 import { useChatScroll } from "@/hooks/useChatScroll";
+import Image from "next/image";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -68,7 +69,7 @@ export const ChatMessages = ({
   }
 
   return (
-    <div ref={chatRef} className="flex-1 flex flex-col py-4 overflow-y-auto">
+    <div ref={chatRef} className="relative flex-1 flex flex-col py-4 overflow-y-auto">
       {!hasNextPage && <div className="flex-1" />}
       {!hasNextPage && <ChatWelcome type={type} name={name} />}
       {hasNextPage && (
@@ -88,17 +89,17 @@ export const ChatMessages = ({
       <div className="flex flex-col-reverse mt-auto">
         {data?.pages?.map((group, i) => (
           <Fragment key={i}>
-            {group.items.map((message) => (
+            {group?.items.map((message) => (
               <ChatItem
-                key={message.id}
-                id={message.id}
+                key={message?.id}
+                id={message?.id}
                 currentMember={member}
-                member={message.member}
-                content={message.content}
-                fileUrl={message.fileUrl}
-                deleted={message.deleted}
-                timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
-                isUpdated={message.updatedAt !== message.createdAt}
+                member={message?.member}
+                content={message?.content}
+                fileUrl={message?.fileUrl}
+                deleted={message?.deleted}
+                timestamp={format(new Date(message?.createdAt), DATE_FORMAT)}
+                isUpdated={message?.updatedAt !== message?.createdAt}
                 socketUrl={socketUrl}
                 socketQuery={socketQuery}
               />
@@ -107,6 +108,11 @@ export const ChatMessages = ({
         ))}
       </div>
       <div ref={bottomRef} />
+
+
+      <div className="fixed top-0 left-0 w-full h-full  flex items-center justify-center pointer-events-none">
+        <Image src={'/appLogo.png'} alt="App Logo" width={500} height={500} className="sm:ml-64 opacity-5 dark:invert"/>
+      </div>
     </div>
   );
 };

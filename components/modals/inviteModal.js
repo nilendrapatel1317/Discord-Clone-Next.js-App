@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
-import { Check, Copy, RefreshCw } from "lucide-react";
+import { Check, Copy, RefreshCw, Share2 } from "lucide-react";
 
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -15,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/useModalStore";
 import { useOrigin } from "@/hooks/useOrigin";
 import axios from "axios";
+import Link from "next/link";
 export const InviteModal = () => {
   const { onOpen, isOpen, onClose, type, data } = useModal();
   const origin = useOrigin();
@@ -39,7 +41,9 @@ export const InviteModal = () => {
   const onNew = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.patch(`/api/servers/${server?.id}/inviteCode`);
+      const response = await axios.patch(
+        `/api/servers/${server?.id}/inviteCode`
+      );
 
       onOpen("invite", { server: response.data });
     } catch (error) {
@@ -47,7 +51,7 @@ export const InviteModal = () => {
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
@@ -56,38 +60,58 @@ export const InviteModal = () => {
           <DialogTitle className="text-2xl text-center font-bold">
             Invite Friends
           </DialogTitle>
+          <DialogDescription>
+            <p>Anyone can join your server with this link.</p>
+          </DialogDescription>
         </DialogHeader>
-        <div className="p-6">
+        <div className="px-6 pt-3 pb-6">
           <Label className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
             Server invite link
           </Label>
-          <div className="flex items-center mt-2 gap-x-2">
+          <div className="flex flex-col items-start">
             <Input
               disabled={isLoading}
-              className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+              className="my-2 bg-zinc-300/50 border-0  focus-visible:ring-0 text-black focus-visible:ring-offset-0"
               value={inviteUrl}
             />
-            <Button disabled={isLoading} onClick={onCopy} size="icon">
+            <Button
+              disabled={isLoading}
+              onClick={onCopy}
+              variant="link"
+              size="sm"
+              className="text-sm text-zinc-500"
+            >
               {copied ? (
-                <Check className="w-4 h-4" />
+                <Check className="w-4 h-4 mr-3" />
               ) : (
-                <Copy className="w-4 h-4" />
+                <Copy className="w-4 h-4 mr-3" />
               )}
+              Copy Link
+            </Button>
+            <Button
+              disabled={isLoading}
+              variant="default"
+              size="sm"
+              className="text-sm text-zinc-500"
+            >
+              <Link href={"https://7labs.io/a/whatsapp-direct"} target="_blank" className="flex">
+                <Share2 className="w-4 h-4 mr-3" />
+                Send link via WhatsApp 
+              </Link><span className="text-xs ml-3 text-rose-500">(Please copy the link)</span>
+            </Button>
+            <Button
+              onClick={onNew}
+              disabled={isLoading}
+              variant="link"
+              size="sm"
+              className="text-sm text-zinc-500"
+            >
+              <RefreshCw className="w-4 h-4 mr-3" />
+              Generate a new link
             </Button>
           </div>
-          <Button
-            onClick={onNew}
-            disabled={isLoading}
-            variant="link"
-            size="sm"
-            className="text-xs text-zinc-500 mt-4"
-          >
-            Generate a new link
-            <RefreshCw className="w-4 h-4 ml-2" />
-          </Button>
         </div>
       </DialogContent>
     </Dialog>
   );
 };
-
