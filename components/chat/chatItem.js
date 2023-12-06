@@ -85,13 +85,19 @@ export const ChatItem = ({
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values) => {
+    const trimmedContent = values.content.trim();
+    if (trimmedContent.length === 0) {
+      // If the trimmed content is empty, don't send the message
+      return;
+    }
+
     try {
       const url = qs.stringifyUrl({
         url: `${socketUrl}/${id}`,
         query: socketQuery,
       });
 
-      await axios.patch(url, values);
+      await axios.patch(url, {content: trimmedContent});
 
       form.reset();
       setIsEditing(false);

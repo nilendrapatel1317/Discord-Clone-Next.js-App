@@ -32,13 +32,19 @@ export const ChatInput = ({ apiUrl, query, name, type }) => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values) => {
+    const trimmedContent = values.content.trim();
+    if (trimmedContent.length === 0) {
+      // If the trimmed content is empty, don't send the message
+      return;
+    }
+    
     try {
       const url = qs.stringifyUrl({
         url: apiUrl,
         query,
       });
 
-      await axios.post(url, values);
+      await axios.post(url, { content: trimmedContent });
 
       form.reset();
       router.refresh();
