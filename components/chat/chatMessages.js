@@ -72,6 +72,7 @@ export const ChatMessages = ({
 
   return (
     <div ref={chatRef} className="relative flex-1 flex flex-col py-4 overflow-y-auto">
+      {data && <div className="flex-1" />}
       {data && <ChatWelcome type={type} name={name} />}
       <div className="flex flex-col-reverse mt-auto">
         {data?.pages?.map((group, i) => (
