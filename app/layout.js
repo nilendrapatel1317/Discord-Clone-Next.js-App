@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/providers/themeProvider";
 import { ModalProvider } from "@/components/providers/modalProvider";
 import { SocketProvider } from "@/components/providers/socketProvider";
 import { QueryProvider } from "@/components/providers/queryProvider";
+import { Loader } from "@/components/Extra/loader";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -28,7 +29,10 @@ const layout = ({ children }) => {
           >
             <SocketProvider>
               <ModalProvider />
-              <QueryProvider>{children}</QueryProvider>
+              <QueryProvider>
+                <Loader />
+                {children}
+              </QueryProvider>
             </SocketProvider>
           </ThemeProvider>
         </body>
