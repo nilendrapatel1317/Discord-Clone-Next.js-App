@@ -12,7 +12,7 @@ export const Loader = () => {
       parentDivReff.current.style.top = "-200%";
       parentDivReff.current.style.transition = "top 2s ease-in-out";
       // setIsLoading(false);
-    }, 1500);
+    }, 1000);
   }; 
 
   return (

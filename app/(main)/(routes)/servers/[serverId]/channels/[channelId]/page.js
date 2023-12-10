@@ -96,7 +96,7 @@ export async function generateMetadata({ params }) {
     },
   });
 
-  const serverName = channel.server.name;
+  const serverName = channel.server.name.length > 10 ? `${channel.server.name.slice(0, 10)}..` : channel.server.name;
   const channelName = channel.name;
   return {
     title: `Discord | ${serverName} | ${channelName}`,

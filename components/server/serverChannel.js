@@ -46,7 +46,11 @@ export const ServerChannel = ({ channel, server, role }) => {
             "text-primary dark:text-zinc-200 dark:group-hover:text-white"
         )}
       >
-        {channel.name}
+        <Tooltip title={channel.name} placement="right">
+          {channel.name.length > 15
+            ? ` ${channel.name.slice(0, 15)}...`
+            : channel.name}
+        </Tooltip>
       </p>
       {channel.name !== "general" && role !== MemberRole.GUEST && (
         <div className="ml-auto flex items-center gap-x-2">

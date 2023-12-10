@@ -91,7 +91,8 @@ export async function generateMetadata({ params }) {
       id: params.serverId,
     },
   });
-  const serverName = server.name;
+  const serverName =
+    server.name.length > 10 ? `${server.name.slice(0, 10)}..` : server.name;
 
   const currentMember = await db.member.findFirst({
     where: {
@@ -111,7 +112,11 @@ export async function generateMetadata({ params }) {
     memberOne.profileId === currentMember.id ? memberOne : memberTwo;
 
   return {
-    title: `Discord | ${serverName} | ${otherMember.profile.name || "Member Chat Room"} `,
+    title: `Discord | ${serverName} | ${
+      otherMember.profile.name.length > 15
+        ? `${otherMember.profile.name.slice(0, 15)}..`
+        : otherMember.profile.name || "Member Chat Room"
+    } `,
   };
 }
 export default MemberIdPage;

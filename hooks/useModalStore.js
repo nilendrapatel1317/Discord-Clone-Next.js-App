@@ -12,6 +12,7 @@ export const modalTypes = [
   "editChannel",
   "messageFile",
   "deleteMessage",
+  "viewPhoto",
 ];
 
 export const useModal = create((set) => ({

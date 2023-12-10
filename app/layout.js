@@ -24,7 +24,6 @@ const layout = ({ children }) => {
             attribute="class"
             defaultTheme="dark"
             enableSystem={false}
-            // disableTransitionOnChange
             storageKey="discord-theme"
           >
             <SocketProvider>

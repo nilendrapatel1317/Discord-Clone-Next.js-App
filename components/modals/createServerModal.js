@@ -26,14 +26,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/Extra/FileUpload";
 import { useModal } from "../../hooks/useModalStore";
+import { AbusedWord } from "@/constents/abusedWord";
 
 const formSchema = z.object({
   name: z.string().min(3, {
     message: "Server name is required.",
   }),
-  imageUrl: z.string().min(1, {
-    message: "Server image is required.",
-  }),
+  imageUrl: z.string(),
 });
 
 export const CreateServerModal = () => {
@@ -52,7 +51,23 @@ export const CreateServerModal = () => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async (values) => {
+  const onSubmit = async ({name},values) => {
+
+    // Check for forbidden words
+    const containsForbiddenWords = AbusedWord.some((word) =>
+    name.toLowerCase().includes(word)
+    );
+
+    if (containsForbiddenWords) {
+      // Apply a custom CSS class to highlight the input field
+      form.setError('name', {
+        type: 'manual',
+        // message: `${name} - abused word is not allowed.`,
+        message: `Abused word is not allowed.`,
+      });
+      return;
+    }
+
     try {
       const response = await axios.post("/api/servers", values);
       const serverId = response.data.id; // Assuming your server API returns the server ID

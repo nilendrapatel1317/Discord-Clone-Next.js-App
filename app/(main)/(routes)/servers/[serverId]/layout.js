@@ -52,7 +52,7 @@ export async function generateMetadata({ params }) {
     },
   });
 
-  const serverName = server.name;
+  const serverName = server.name.length > 10 ? `${server.name.slice(0, 10)}..` : server.name;
   return {
     title: `Discord | ${serverName} `,
     

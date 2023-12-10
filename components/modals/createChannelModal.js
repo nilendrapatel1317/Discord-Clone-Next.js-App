@@ -35,6 +35,7 @@ import { Button } from "@/components/ui/button";
 import { useModal } from "../../hooks/useModalStore";
 import { ChannelType } from "@prisma/client";
 import { useEffect } from "react";
+import { AbusedWord } from "@/constents/abusedWord";
 
 const formSchema = z.object({
   name: z
@@ -74,7 +75,22 @@ export const CreateChannelModal = () => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async (values) => {
+  const onSubmit = async ({name},values) => {
+    // Check for forbidden words
+    const containsForbiddenWords = AbusedWord.some((word) =>
+    name.toLowerCase().includes(word)
+    );
+
+    if (containsForbiddenWords) {
+      // Apply a custom CSS class to highlight the input field
+      form.setError('name', {
+        type: 'manual',
+        // message: `${name} - abused word is not allowed.`,
+        message: `Abused word is not allowed.`,
+      });
+      return;
+    }
+
     try {
       const url = qs.stringifyUrl({
         url: "/api/channels",

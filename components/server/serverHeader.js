@@ -18,6 +18,7 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { useModal } from "@/hooks/useModalStore";
+import { Tooltip } from "@mui/material";
 
 export const ServerHeader = ({ server, role }) => {
   // console.log(server, role);
@@ -30,7 +31,11 @@ export const ServerHeader = ({ server, role }) => {
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none" asChild>
         <button className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
-          {server.name}
+          <Tooltip title={server.name} placement="right">
+            {server.name.length > 15
+              ? `${server.name.slice(0, 15)}..`
+              : server.name}
+          </Tooltip>
           <ChevronDown className="h-5 w-5 ml-2 md:ml-auto" />
         </button>
       </DropdownMenuTrigger>

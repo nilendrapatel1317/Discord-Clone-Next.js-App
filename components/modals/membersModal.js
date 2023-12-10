@@ -33,6 +33,8 @@ import {
   ShieldAlert,
   ShieldCheck,
   ShieldQuestion,
+  Trash,
+  UserX,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -49,7 +51,7 @@ export const MembersModal = () => {
   const isModalOpen = isOpen && type === "members";
   const { server } = data;
 
-  const onKick = async (memberId) => {
+  const onRemove = async (memberId) => {
     try {
       setLoadingId(memberId);
       const url = qs.stringifyUrl({
@@ -153,9 +155,9 @@ export const MembersModal = () => {
                           </DropdownMenuPortal>
                         </DropdownMenuSub>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => onKick(member.id)}>
-                          <Gavel className="h-4 w-4 mr-2" />
-                          Kick
+                        <DropdownMenuItem onClick={() => onRemove(member.id)}>
+                          <Trash className="h-4 w-4 mr-2" />
+                          Remove
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

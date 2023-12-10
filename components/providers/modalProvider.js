@@ -13,6 +13,7 @@ import { DeleteChannelModal } from "@/components/modals/deleteChannelModal";
 import { EditChannelModal } from "@/components/modals/editChannelModal";
 import { MessageFileModal } from "@/components/modals/messageFileModal";
 import { DeleteMessageModal } from "@/components/modals/deleteMessageModal";
+import { ViewPhotoModal } from "@/components/modals/viewPhotoModal";
 
 
 export const ModalProvider = () => {
@@ -39,6 +40,7 @@ export const ModalProvider = () => {
       <EditChannelModal />
       <MessageFileModal />
       <DeleteMessageModal />
+      <ViewPhotoModal />
     </>
   );
 };

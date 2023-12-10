@@ -12,6 +12,7 @@ import {
   Download,
   Edit,
   FileIcon,
+  Plus,
   Shield,
   ShieldAlert,
   ShieldCheck,
@@ -97,7 +98,7 @@ export const ChatItem = ({
         query: socketQuery,
       });
 
-      await axios.patch(url, {content: trimmedContent});
+      await axios.patch(url, { content: trimmedContent });
 
       form.reset();
       setIsEditing(false);
@@ -172,19 +173,16 @@ export const ChatItem = ({
           </div>
           {isImage && (
             <div className="flex items-center gap-3">
-              <a
-                href={fileUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48"
-              >
+              
+              <div className="relative aspect-square rounded-md mt-3 overflow-hidden  border flex items-center bg-secondary h-48 w-48">
                 <Image
                   src={fileUrl}
                   alt={content}
                   fill
-                  className="object-cover"
+                  className="object-cover cursor-pointer"
+                  onClick={() => onOpen("viewPhoto", fileUrl)}
                 />
-              </a>
+              </div>
               <div className="cursor-pointer text-zinc-600 dark:text-zinc-200 p-1 rounded-sm bg-zinc-100 hover:bg-white dark:bg-zinc-700 ">
                 <Tooltip title="Download Photo" placement="top">
                   <button onClick={() => handleDownload(fileUrl, "image")}>
