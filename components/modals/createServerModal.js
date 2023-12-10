@@ -32,7 +32,9 @@ const formSchema = z.object({
   name: z.string().min(3, {
     message: "Server name is required.",
   }),
-  imageUrl: z.string(),
+  imageUrl: z.string().min(1, {
+    message: "Server image is required.",
+  }),
 });
 
 export const CreateServerModal = () => {
@@ -51,11 +53,12 @@ export const CreateServerModal = () => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async ({name},values) => {
+  const onSubmit = async (values) => {
+
 
     // Check for forbidden words
     const containsForbiddenWords = AbusedWord.some((word) =>
-    name.toLowerCase().includes(word)
+    values.name.toLowerCase().includes(word)
     );
 
     if (containsForbiddenWords) {

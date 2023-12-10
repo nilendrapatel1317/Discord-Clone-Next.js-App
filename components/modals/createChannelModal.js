@@ -75,10 +75,10 @@ export const CreateChannelModal = () => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async ({name},values) => {
+  const onSubmit = async (values) => {
     // Check for forbidden words
     const containsForbiddenWords = AbusedWord.some((word) =>
-    name.toLowerCase().includes(word)
+      values.name.toLowerCase().includes(word)
     );
 
     if (containsForbiddenWords) {
