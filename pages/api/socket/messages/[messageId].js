@@ -13,6 +13,8 @@ export default async function handler(req, res) {
     const { messageId, serverId, channelId } = req.query;
     const { content } = req.body;
 
+    const isOwner = profile.owner === true;
+
     if (!profile) {
       return res.status(401).json({ error: "Unauthorized" });
     }
@@ -28,11 +30,6 @@ export default async function handler(req, res) {
     const server = await db.server.findFirst({
       where: {
         id: serverId,
-        // members: {
-        //   some: {
-        //     profileId: profile.id,
-        //   },
-        // },
       },
       include: {
         members: true,
@@ -58,7 +55,7 @@ export default async function handler(req, res) {
       (member) => member.profileId === profile.id
     );
 
-    if (!member) {
+    if (!member && !isOwner) {
       return res.status(404).json({ error: "Member not found" });
     }
 

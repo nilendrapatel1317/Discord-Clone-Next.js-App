@@ -20,11 +20,11 @@ import {
 import { useModal } from "@/hooks/useModalStore";
 import { Tooltip } from "@mui/material";
 
-export const ServerHeader = ({ server, role }) => {
+export const ServerHeader = ({ server, role , isOwner}) => {
   // console.log(server, role);
   const { onOpen } = useModal();
 
-  const isAdmin = role === MemberRole.ADMIN;
+  const isAdmin = role === MemberRole.ADMIN || isOwner;
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
   // console.log(isAdmin, isModerator);
   return (
@@ -54,7 +54,7 @@ export const ServerHeader = ({ server, role }) => {
             onClick={() => onOpen("editServer", { server })}
             className="px-3 py-2 text-sm cursor-pointer"
           >
-            Server Settings
+            Edit Server
             <Settings className="h-4 w-4 ml-auto" />
           </DropdownMenuItem>
         )}

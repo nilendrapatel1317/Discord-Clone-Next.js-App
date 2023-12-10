@@ -5,7 +5,7 @@ import axios from "axios";
 import qs from "query-string";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus, SendHorizonalIcon, SendIcon } from "lucide-react";
+import { Loader2, Plus, SendHorizonalIcon, SendIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
@@ -91,7 +91,11 @@ export const ChatInput = ({ apiUrl, query, name, type }) => {
                     type="submit"
                     className="absolute top-7 right-8 text-zinc-400 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
                   >
-                    <SendHorizonalIcon />
+                    {isLoading ? (
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                      ) : (
+                        <SendHorizonalIcon className="w-5 h-5" />
+                      )}
                   </button>
                 </div>
               </FormControl>

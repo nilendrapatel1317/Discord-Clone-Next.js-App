@@ -14,10 +14,13 @@ const iconMap = {
   [ChannelType.VIDEO]: Video,
 };
 
-export const ServerChannel = ({ channel, server, role }) => {
+export const ServerChannel = ({ channel, server, role , isOwner }) => {
   const { onOpen } = useModal();
   const params = useParams();
   const router = useRouter();
+
+  const isAdmin = role === MemberRole.ADMIN || isOwner;
+  const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
   const Icon = iconMap[channel.type];
 
@@ -52,7 +55,7 @@ export const ServerChannel = ({ channel, server, role }) => {
             : channel.name}
         </Tooltip>
       </p>
-      {channel.name !== "general" && role !== MemberRole.GUEST && (
+      {channel.name !== "general" && isModerator && (
         <div className="ml-auto flex items-center gap-x-2">
           <Tooltip title="Edit" placement="top">
             <Edit

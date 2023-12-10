@@ -17,40 +17,23 @@ export const NavigationSidebar = async () => {
     return redirect("/");
   }
 
-  // const servers = await db.Server.findMany({
-  //   where: {
-  //     OR: [{ profileId: profile.id }],
-  //   },
-  // });
-  // const servers = await db.server.findMany({
-  //   where: {
-  //     members: {
-  //       some: {
-  //         profileId: profile.id
-  //       }
-  //     }
-  //   }
-  // });
-
   const servers = await db.server.findMany({
     include: {
       members: true,
     },
   });
-  // console.log(servers)
-  // const filteredServers = servers.map((server) => {
-  //   // server.members = server.members.filter((member) => member.profileId === profile.id);
-  //   const filtermembers = server.members.filter(
-  //     (member) => member.profileId === profile.id
-  //   );
-  //   return {
-  //     ...server,
-  //     members: filtermembers,
-  //   };
-  // });
 
   const filteredServers = servers
     .map((server) => {
+      // Check if the user is the owner
+      const isOwner = profile.owner === true;
+
+      // If the user is the owner, return the server as is
+      if (isOwner) {
+        return server;
+      }
+
+      // If not the owner, filter members based on profileId
       const membersWithProfile = server.members.filter(
         (member) => member.profileId === profile.id
       );
@@ -58,7 +41,7 @@ export const NavigationSidebar = async () => {
       // Return a new object with filtered members
       return {
         ...server,
-        members: membersWithProfile,
+        members : isOwner ? null : membersWithProfile,
       };
     })
     .filter((server) => server.members.length > 0);
@@ -89,18 +72,6 @@ export const NavigationSidebar = async () => {
             <PowerIcon />
           </Tooltip>
         </SignOutButton>
-        {/* <Tooltip title="Your Account" placement="right">
-          <div>
-            <UserButton
-              afterSignOutUrl="/sign-in"
-              appearance={{
-                elements: {
-                  avatarBox: "h-[40px] w-[40px] sm:h-[45px] sm:w-[45px]",
-                },
-              }}
-            />
-          </div>
-        </Tooltip> */}
       </div>
     </div>
   );

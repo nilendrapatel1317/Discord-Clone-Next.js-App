@@ -21,7 +21,10 @@ export const ChatMessages = ({
   paramKey,
   paramValue,
   type,
+  isOwner
 }) => {
+
+
   const queryKey = `chat:${chatId}`;
   const addKey = `chat:${chatId}:messages`;
   const updateKey = `chat:${chatId}:messages:update`;
@@ -90,6 +93,7 @@ export const ChatMessages = ({
                 isUpdated={message?.updatedAt !== message?.createdAt}
                 socketUrl={socketUrl}
                 socketQuery={socketQuery}
+                isOwner
               />
             ))}
           </Fragment>

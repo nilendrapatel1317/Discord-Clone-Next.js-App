@@ -15,7 +15,7 @@ const roleIconMap = {
   [MemberRole.ADMIN]: <ShieldCheck className="h-4 w-4 ml-2 text-green-500" />,
 };
 
-export const ServerMember = ({ member }) => {
+export const ServerMember = ({ member , isOwner }) => {
   const params = useParams();
   const router = useRouter();
 
@@ -30,7 +30,8 @@ export const ServerMember = ({ member }) => {
       onClick={onClick}
       className={cn(
         "group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1",
-        params?.memberId === member.id && "bg-zinc-700/20 dark:bg-zinc-700"
+        params?.memberId === member.id && "bg-zinc-700/20 dark:bg-zinc-700",
+        isOwner && "cursor-not-allowed"
       )}
     >
       <UserAvatar

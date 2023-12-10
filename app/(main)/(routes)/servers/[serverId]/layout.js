@@ -18,15 +18,9 @@ const layout = async ({ children, params }) => {
   const server = await db.server.findUnique({
     where: {
       id: params.serverId,
-      //   members: {
-      //     some: {
-      //       id: profile.id,
-      //     },
-      //   }
     },
   });
 
-  // console.log(server);
 
   if (!server) {
     return redirect("/");

@@ -60,7 +60,7 @@ export const JoinServerModel = ({ user }) => {
     console.log(serverlink);
     const link = document.createElement("a");
     link.href = serverlink;
-    link.setAttribute("target", "_blank");
+    // link.setAttribute("target", "_blank");
     link.click();
   };
 

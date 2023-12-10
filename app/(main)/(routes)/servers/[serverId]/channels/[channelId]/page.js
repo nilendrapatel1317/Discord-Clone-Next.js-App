@@ -8,10 +8,10 @@ import { ChatInput } from "@/components/chat/chatInput";
 import { ChatMessages } from "@/components/chat/chatMessages";
 import { MediaRoom } from "@/components/Extra/media-room";
 
-
 const ChannelIdPage = async ({ params }) => {
   const profile = await currentProfile();
-  
+
+  let isOwner = profile.owner === true;
 
   if (!profile) {
     return redirectToSignIn();
@@ -30,7 +30,7 @@ const ChannelIdPage = async ({ params }) => {
     },
   });
 
-  if (!channel || !member) {
+  if (!channel || (!member && !isOwner)) {
     redirect("/");
   }
 
@@ -56,6 +56,7 @@ const ChannelIdPage = async ({ params }) => {
             }}
             paramKey="channelId"
             paramValue={channel.id}
+            isOwner
           />
           <ChatInput
             name={channel.name}
@@ -68,20 +69,42 @@ const ChannelIdPage = async ({ params }) => {
           />
         </>
       )}
-      {channel.type === ChannelType.AUDIO && (
-        <MediaRoom
-          chatId={channel.id}
-          video={false}
-          audio={true}
-        />
-      )}
-      {channel.type === ChannelType.VIDEO && (
-        <MediaRoom
-          chatId={channel.id}
-          video={true}
-          audio={true}
-        />
-      )}
+      {channel.type === ChannelType.AUDIO &&
+        (isOwner && !member ? (
+          <div className=" flex items-center justify-center h-full">
+            <p className="text-center text-2xl sm:w-2/3">
+              Beta Nilendra 😉 <br className="sm:hidden" /> Jada hoshiyar ban
+              raha hai. <br /> Bina kisi server ko join kiye tu bas dekh sakta
+              hai. <br />
+              Lekin participate nhi kar sakta . <br />
+              Samja ki nhi 🤣😂
+            </p>
+            {/* <p className="text-center text-2xl sm:w-1/2">
+              "I know you are the Owner of Discord App. But you are not allowed
+              to join this room before you join the server."
+            </p> */}
+          </div>
+        ) : (
+          <MediaRoom chatId={channel.id} video={false} audio={true} />
+        ))}
+      {channel.type === ChannelType.VIDEO &&
+        (isOwner && !member ? (
+          <div className=" flex items-center justify-center h-full">
+            <p className="text-center text-2xl sm:w-2/3">
+              Beta Nilendra 😉 <br className="sm:hidden" /> Jada hoshiyar ban
+              raha hai. <br /> Bina kisi server ko join kiye tu bas dekh sakta
+              hai. <br />
+              Lekin participate nhi kar sakta . <br />
+              Samja ki nhi 🤣😂
+            </p>
+            {/* <p className="text-center text-2xl sm:w-1/2">
+              "I know you are the Owner of Discord App. But you are not allowed
+              to join this room before you join the server."
+            </p> */}
+          </div>
+        ) : (
+          <MediaRoom chatId={channel.id} video={true} audio={true} />
+        ))}
     </div>
   );
 };
@@ -96,12 +119,14 @@ export async function generateMetadata({ params }) {
     },
   });
 
-  const serverName = channel.server.name.length > 10 ? `${channel.server.name.slice(0, 10)}..` : channel.server.name;
-  const channelName = channel.name;
+  const serverName =
+    channel?.server.name.length > 10
+      ? `${channel?.server.name.slice(0, 10)}..`
+      : channel?.server.name;
+  const channelName = channel?.name;
   return {
     title: `Discord | ${serverName} | ${channelName}`,
-    
-  }
+  };
 }
 
 export default ChannelIdPage;

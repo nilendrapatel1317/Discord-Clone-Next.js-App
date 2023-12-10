@@ -9,18 +9,21 @@ import { Tooltip } from "@mui/material";
 export const ServerSection = ({
   label,
   role,
+  isOwner,
   sectionType,
   channelType,
   server,
 }) => {
   const { onOpen } = useModal();
+  const isAdmin = role === MemberRole.ADMIN || isOwner;
+  const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
   return (
     <div className="flex items-center justify-between py-2">
       <p className="text-xs uppercase font-semibold text-zinc-500 dark:text-zinc-400">
         {label}
       </p>
-      {role !== MemberRole.GUEST && sectionType === "channels" && (
+      { isModerator && sectionType === "channels" && (
         <Tooltip title={`Create ${channelType.toLowerCase()} Channel`} placement="top">
           <button
             onClick={() => onOpen("createChannel", { channelType })}
@@ -30,7 +33,8 @@ export const ServerSection = ({
           </button>
         </Tooltip>
       )}
-      {role === MemberRole.ADMIN && sectionType === "members" && (
+      
+      {isAdmin && sectionType === "members" && (
         <Tooltip title="Manage Members" placement="top">
           <button
             onClick={() => onOpen("members", { server })}

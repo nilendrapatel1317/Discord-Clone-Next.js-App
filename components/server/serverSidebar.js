@@ -41,6 +41,7 @@ const ServerSidebar = async ({ serverId }) => {
   if (!profile) {
     return redirect("/");
   }
+  const isOwner = profile.owner === true;
 
   const server = await db.server.findUnique({
     where: {
@@ -86,7 +87,7 @@ const ServerSidebar = async ({ serverId }) => {
 
   return (
     <div className="flex pb-3 flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
-      <ServerHeader server={server} role={role} />
+      <ServerHeader server={server} role={role} isOwner={isOwner} />
       <div className="mt-2">
         <ServerSearch
           data={[
@@ -137,6 +138,7 @@ const ServerSidebar = async ({ serverId }) => {
               sectionType="channels"
               channelType={ChannelType.TEXT}
               role={role}
+              isOwner={isOwner}
               label="Text Channels"
             />
             <div className="space-y-[2px]">
@@ -145,6 +147,7 @@ const ServerSidebar = async ({ serverId }) => {
                   key={channel.id}
                   channel={channel}
                   role={role}
+                  isOwner={isOwner}
                   server={server}
                 />
               ))}
@@ -157,6 +160,7 @@ const ServerSidebar = async ({ serverId }) => {
               sectionType="channels"
               channelType={ChannelType.AUDIO}
               role={role}
+              isOwner={isOwner}
               label="Voice Channels"
             />
             <div className="space-y-[2px]">
@@ -165,6 +169,7 @@ const ServerSidebar = async ({ serverId }) => {
                   key={channel.id}
                   channel={channel}
                   role={role}
+                  isOwner={isOwner}
                   server={server}
                 />
               ))}
@@ -177,6 +182,7 @@ const ServerSidebar = async ({ serverId }) => {
               sectionType="channels"
               channelType={ChannelType.VIDEO}
               role={role}
+              isOwner={isOwner}
               label="Video Channels"
             />
             <div className="space-y-[2px]">
@@ -185,6 +191,7 @@ const ServerSidebar = async ({ serverId }) => {
                   key={channel.id}
                   channel={channel}
                   role={role}
+                  isOwner={isOwner}
                   server={server}
                 />
               ))}
@@ -196,12 +203,18 @@ const ServerSidebar = async ({ serverId }) => {
             <ServerSection
               sectionType="members"
               role={role}
+              isOwner={isOwner}
               label="Members"
               server={server}
             />
             <div className="space-y-[2px]">
               {members.map((member) => (
-                <ServerMember key={member.id} member={member} server={server} />
+                <ServerMember
+                  key={member.id}
+                  member={member}
+                  server={server}
+                  isOwner={isOwner}
+                />
               ))}
             </div>
           </div>

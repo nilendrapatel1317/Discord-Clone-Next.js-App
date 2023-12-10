@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { Tooltip } from "@mui/material";
+import { currentProfile } from "@/lib/currentProfile";
 
 export const NavigationItem = ({ id, imageUrl, name }) => {
   const params = useParams();
