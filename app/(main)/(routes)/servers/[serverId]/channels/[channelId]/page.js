@@ -7,11 +7,10 @@ import { ChannelType } from "@prisma/client";
 import { ChatInput } from "@/components/chat/chatInput";
 import { ChatMessages } from "@/components/chat/chatMessages";
 import { MediaRoom } from "@/components/Extra/media-room";
-
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const ChannelIdPage = async ({ params }) => {
   const profile = await currentProfile();
-  
 
   if (!profile) {
     return redirectToSignIn();
@@ -43,20 +42,22 @@ const ChannelIdPage = async ({ params }) => {
       />
       {channel.type === ChannelType.TEXT && (
         <>
-          <ChatMessages
-            member={member}
-            name={channel.name}
-            chatId={channel.id}
-            type="channel"
-            apiUrl="/api/messages"
-            socketUrl="/api/socket/messages"
-            socketQuery={{
-              channelId: channel.id,
-              serverId: channel.serverId,
-            }}
-            paramKey="channelId"
-            paramValue={channel.id}
-          />
+          <ScrollArea className="flex-1 px-3">
+            <ChatMessages
+              member={member}
+              name={channel.name}
+              chatId={channel.id}
+              type="channel"
+              apiUrl="/api/messages"
+              socketUrl="/api/socket/messages"
+              socketQuery={{
+                channelId: channel.id,
+                serverId: channel.serverId,
+              }}
+              paramKey="channelId"
+              paramValue={channel.id}
+            />
+          </ScrollArea>
           <ChatInput
             name={channel.name}
             type="channel"
@@ -69,18 +70,10 @@ const ChannelIdPage = async ({ params }) => {
         </>
       )}
       {channel.type === ChannelType.AUDIO && (
-        <MediaRoom
-          chatId={channel.id}
-          video={false}
-          audio={true}
-        />
+        <MediaRoom chatId={channel.id} video={false} audio={true} />
       )}
       {channel.type === ChannelType.VIDEO && (
-        <MediaRoom
-          chatId={channel.id}
-          video={true}
-          audio={true}
-        />
+        <MediaRoom chatId={channel.id} video={true} audio={true} />
       )}
     </div>
   );
@@ -96,12 +89,14 @@ export async function generateMetadata({ params }) {
     },
   });
 
-  const serverName = channel.server.name.length > 10 ? `${channel.server.name.slice(0, 10)}..` : channel.server.name;
+  const serverName =
+    channel.server.name.length > 10
+      ? `${channel.server.name.slice(0, 10)}..`
+      : channel.server.name;
   const channelName = channel.name;
   return {
     title: `Discord | ${serverName} | ${channelName}`,
-    
-  }
+  };
 }
 
 export default ChannelIdPage;

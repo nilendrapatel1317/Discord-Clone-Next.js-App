@@ -48,7 +48,7 @@ export const ChatMessages = ({
     }
   };
 
-  if (status === "loading") {
+  if (status === "loading" || status === "pending") {
     return (
       <div className="flex flex-col flex-1 justify-center items-center">
         <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4" />
@@ -71,10 +71,10 @@ export const ChatMessages = ({
   }
 
   return (
-    <div ref={chatRef} className="relative flex-1 flex flex-col py-4 overflow-y-auto">
+    <div className="relative flex-1 flex flex-col py-4">
       {data && <div className="flex-1" />}
       {data && <ChatWelcome type={type} name={name} />}
-      <div className="flex flex-col-reverse mt-auto">
+      <div className="flex flex-col-reverse">
         {data?.pages?.map((group, i) => (
           <Fragment key={i}>
             {group?.items.map((message) => (
@@ -98,7 +98,13 @@ export const ChatMessages = ({
       <div ref={bottomRef} />
 
       <div className="fixed top-0 left-0 w-full h-full  flex items-center justify-center pointer-events-none">
-        <Image src={'/appLogo.png'} alt="App Logo" width={500} height={500} className="sm:ml-64 opacity-5 dark:invert"/>
+        <Image
+          src={"/appLogo.png"}
+          alt="App Logo"
+          width={500}
+          height={500}
+          className="sm:ml-64 opacity-5 dark:invert"
+        />
       </div>
     </div>
   );

@@ -10,9 +10,9 @@ export const Loader = () => {
   const handleImageLoad = () => {
     setTimeout(() => {
       parentDivReff.current.style.top = "-200%";
-      parentDivReff.current.style.transition = "top 2s ease-in-out";
+      parentDivReff.current.style.transition = "top 1s ease-in-out";
       // setIsLoading(false);
-    }, 1000);
+    }, 0);
   }; 
 
   return (
@@ -30,7 +30,7 @@ export const Loader = () => {
             src={"/appLoaderForPhone.jpg"}
             alt="App Loader For Phone"
             fill
-            className="invert dark:invert object-contain scale-[1.05] sm:hidden"
+            className="invert-0 dark:invert object-contain scale-[1.05] sm:hidden"
             onLoad={handleImageLoad}
           />
         </div>
