@@ -65,7 +65,7 @@ export const InitialModal = ({user}) => {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post("/api/servers", values);
-      const serverId = response.data.id; // Assuming your server API returns the server ID
+      const serverId = response.data.id; 
 
       form.reset();
       router.push(`/servers/${serverId}`);

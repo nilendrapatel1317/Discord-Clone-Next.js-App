@@ -28,11 +28,6 @@ export default async function handler(req, res) {
     const server = await db.server.findFirst({
       where: {
         id: serverId,
-        // members: {
-        //   some: {
-        //     profileId: profile.id,
-        //   },
-        // },
       },
       include: {
         members: true,

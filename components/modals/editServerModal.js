@@ -44,7 +44,6 @@ export const EditServerModal = () => {
   const isModalOpen = isOpen && type === "editServer";  
   const {server} = data;
 
-  // console.log(server)
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -68,7 +67,6 @@ export const EditServerModal = () => {
       const serverId = response.data.id;
   
       form.reset();
-      // router.push(`/servers/${serverId}`);
       router.refresh();
       onClose();
     } catch (error) {

@@ -27,6 +27,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import FileUpload from "../Extra/FileUpload";
+import { Plus } from "lucide-react";
 
 const formSchema = z.object({
   serverlink: z.string().min(40, {
@@ -34,7 +35,7 @@ const formSchema = z.object({
   }),
 });
 
-export const JoinServerModel = ({ user }) => {
+export const JoinServerModel = ({ user, from }) => {
   const [isMounted, setIsMounted] = useState(false);
 
   const router = useRouter();
@@ -60,7 +61,7 @@ export const JoinServerModel = ({ user }) => {
     console.log(serverlink);
     const link = document.createElement("a");
     link.href = serverlink;
-    link.setAttribute("target", "_blank");
+    // link.setAttribute("target", "_blank");
     link.click();
   };
 
@@ -71,9 +72,13 @@ export const JoinServerModel = ({ user }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default" size="lg">
-          Join Server
-        </Button>
+        {!from ? (
+          <Button variant="default" size="lg">
+            Join Server
+          </Button>
+        ) : (
+          <Plus />
+        )}
       </DialogTrigger>
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">

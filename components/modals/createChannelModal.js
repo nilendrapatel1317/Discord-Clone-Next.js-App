@@ -76,16 +76,13 @@ export const CreateChannelModal = () => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values) => {
-    // Check for forbidden words
     const containsForbiddenWords = AbusedWord.some((word) =>
       values.name.toLowerCase().includes(word)
     );
 
     if (containsForbiddenWords) {
-      // Apply a custom CSS class to highlight the input field
       form.setError('name', {
         type: 'manual',
-        // message: `${name} - abused word is not allowed.`,
         message: `Abused word is not allowed.`,
       });
       return;

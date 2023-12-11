@@ -26,14 +26,6 @@ export async function DELETE(req, { params }) {
     const server = await db.server.update({
       where: {
         id: serverId,
-        // members: {
-        //   some: {
-        //     profileId: profile.id,
-        //     role: {
-        //       in: [MemberRole.ADMIN, MemberRole.MODERATOR],
-        //     },
-        //   },
-        // },
       },
       data: {
         channels: {
@@ -81,14 +73,6 @@ export async function PATCH(req, { params }) {
     const server = await db.server.update({
       where: {
         id: serverId,
-        // members: {
-        //   some: {
-        //     profileId: profile.id,
-        //     role: {
-        //       in: [MemberRole.ADMIN, MemberRole.MODERATOR],
-        //     },
-        //   },
-        // },
       },
       data: {
         channels: {

@@ -11,7 +11,6 @@ export const Loader = () => {
     setTimeout(() => {
       parentDivReff.current.style.top = "-200%";
       parentDivReff.current.style.transition = "top 1s ease-in-out";
-      // setIsLoading(false);
     }, 0);
   }; 
 

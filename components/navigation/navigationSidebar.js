@@ -5,49 +5,39 @@ import { NavigationAction } from "./navigationAction";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavigationItem } from "@/components/navigation/navigationItem";
-import { SignOutButton, UserButton } from "@clerk/nextjs";
+import { SignOutButton, UserButton, currentUser } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/theme/ModeToggle";
 import { Tooltip } from "@mui/material";
-import { PowerIcon } from "lucide-react";
+import { Plus, PowerIcon } from "lucide-react";
+import { Button } from "../ui/button";
+import { JoinServerModel } from "../modals/joinServerModal";
 
 export const NavigationSidebar = async () => {
   const profile = await currentProfile();
 
+  const clerkUser = await currentUser();
+
+  const updateUser = await db.profile.update({
+    where: {
+      id: profile?.id,
+    },
+    data: {
+      userId: clerkUser?.id,
+      name: `${clerkUser?.firstName} ${clerkUser?.lastName}`,
+      imageUrl: clerkUser?.imageUrl,
+      email: clerkUser?.emailAddresses[0].emailAddress,
+    },
+  });
+
   if (!profile) {
     return redirect("/");
   }
-
-  // const servers = await db.Server.findMany({
-  //   where: {
-  //     OR: [{ profileId: profile.id }],
-  //   },
-  // });
-  // const servers = await db.server.findMany({
-  //   where: {
-  //     members: {
-  //       some: {
-  //         profileId: profile.id
-  //       }
-  //     }
-  //   }
-  // });
 
   const servers = await db.server.findMany({
     include: {
       members: true,
     },
   });
-  // console.log(servers)
-  // const filteredServers = servers.map((server) => {
-  //   // server.members = server.members.filter((member) => member.profileId === profile.id);
-  //   const filtermembers = server.members.filter(
-  //     (member) => member.profileId === profile.id
-  //   );
-  //   return {
-  //     ...server,
-  //     members: filtermembers,
-  //   };
-  // });
 
   const filteredServers = servers
     .map((server) => {
@@ -55,7 +45,6 @@ export const NavigationSidebar = async () => {
         (member) => member.profileId === profile.id
       );
 
-      // Return a new object with filtered members
       return {
         ...server,
         members: membersWithProfile,
@@ -78,18 +67,25 @@ export const NavigationSidebar = async () => {
           </div>
         ))}
       </ScrollArea>
-      <div className="pb-3 mt-auto flex items-center flex-col gap-y-4">
-        <Tooltip title="Switch Theme" placement="right">
-          <div>
-            <ModeToggle />
-          </div>
+      <div className="pb-1 flex flex-col items-center gap-y-2">
+        <Tooltip title="Join Server" placement="right">
+          <Button
+            className="bg-transparent border-0"
+            variant="outline"
+            size="icon"
+          >
+            <JoinServerModel user={profile} from="sidebar" />
+          </Button>
         </Tooltip>
-        <SignOutButton className="cursor-pointer" appearance={{}}>
+        <Tooltip title="Switch Theme" placement="right">
+          <ModeToggle />
+        </Tooltip>
+        {/* <SignOutButton className="cursor-pointer" appearance={{}}>
           <Tooltip title="Sign Out" placement="right">
             <PowerIcon />
           </Tooltip>
-        </SignOutButton>
-        {/* <Tooltip title="Your Account" placement="right">
+        </SignOutButton> */}
+        <Tooltip title="Your Account" placement="right">
           <div>
             <UserButton
               afterSignOutUrl="/sign-in"
@@ -100,7 +96,7 @@ export const NavigationSidebar = async () => {
               }}
             />
           </div>
-        </Tooltip> */}
+        </Tooltip>
       </div>
     </div>
   );

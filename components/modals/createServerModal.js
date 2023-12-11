@@ -56,16 +56,13 @@ export const CreateServerModal = () => {
   const onSubmit = async (values) => {
 
 
-    // Check for forbidden words
     const containsForbiddenWords = AbusedWord.some((word) =>
     values.name.toLowerCase().includes(word)
     );
 
     if (containsForbiddenWords) {
-      // Apply a custom CSS class to highlight the input field
       form.setError('name', {
         type: 'manual',
-        // message: `${name} - abused word is not allowed.`,
         message: `Abused word is not allowed.`,
       });
       return;
@@ -73,10 +70,9 @@ export const CreateServerModal = () => {
 
     try {
       const response = await axios.post("/api/servers", values);
-      const serverId = response.data.id; // Assuming your server API returns the server ID
+      const serverId = response.data.id; 
   
       form.reset();
-      // router.push(`/servers/${serverId}`);
       router.refresh();
       onClose();
     } catch (error) {

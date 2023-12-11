@@ -85,7 +85,7 @@ const ServerSidebar = async ({ serverId }) => {
   )?.role;
 
   return (
-    <div className="flex pb-3 flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
+    <div className="flex pb-1 flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
       <ServerHeader server={server} role={role} />
       <div className="mt-2">
         <ServerSearch
@@ -207,8 +207,8 @@ const ServerSidebar = async ({ serverId }) => {
           </div>
         )}
       </ScrollArea>
-      <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
-      <ServerFooter />
+      {/* <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" /> */}
+      {/* <ServerFooter /> */}
     </div>
   );
 };

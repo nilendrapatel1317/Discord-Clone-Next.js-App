@@ -40,7 +40,6 @@ export const ViewPhotoModal = () => {
   const {isOpen , onClose , type , data} = useModal();
   const router = useRouter();
   const fileUrl = data;
-  // console.log(fileUrl)
 
   const isModalOpen = isOpen && type === "viewPhoto";  
 
@@ -57,10 +56,9 @@ export const ViewPhotoModal = () => {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post("/api/servers", values);
-      const serverId = response.data.id; // Assuming your server API returns the server ID
+      const serverId = response.data.id;
   
       form.reset();
-      // router.push(`/servers/${serverId}`);
       router.refresh();
       onClose();
     } catch (error) {

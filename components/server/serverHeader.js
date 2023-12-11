@@ -21,12 +21,10 @@ import { useModal } from "@/hooks/useModalStore";
 import { Tooltip } from "@mui/material";
 
 export const ServerHeader = ({ server, role }) => {
-  // console.log(server, role);
   const { onOpen } = useModal();
 
   const isAdmin = role === MemberRole.ADMIN;
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
-  // console.log(isAdmin, isModerator);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none" asChild>

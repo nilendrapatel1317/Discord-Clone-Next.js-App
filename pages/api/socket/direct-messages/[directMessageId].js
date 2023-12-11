@@ -24,18 +24,6 @@ export default async function handler(req, res) {
     const conversation = await db.conversation.findFirst({
       where: {
         id: conversationId,
-        // OR: [
-        //   {
-        //     memberOne: {
-        //       profileId: profile.id,
-        //     },
-        //   },
-        //   {
-        //     memberTwo: {
-        //       profileId: profile.id,
-        //     },
-        //   },
-        // ],
       },
       include: {
         memberOne: {

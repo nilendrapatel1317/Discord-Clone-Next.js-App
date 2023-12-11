@@ -5,7 +5,7 @@ import { Tooltip } from "@mui/material";
 
 export const ServerFooter = async () => {
   const profile = await currentProfile();
-  // console.log(profile);
+
   return (
     <div>
       <div className="overflow-x-hidden me-2 px-3 flex gap-1 items-center h-12">

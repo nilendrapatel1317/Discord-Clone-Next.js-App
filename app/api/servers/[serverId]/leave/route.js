@@ -21,11 +21,6 @@ export async function PATCH(req, { params }) {
         profileId: {
           not: profile.id,
         },
-        // members: {
-        //   some: {
-        //     profileId: profile.id,
-        //   },
-        // },
       },
       data: {
         members: {

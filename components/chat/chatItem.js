@@ -124,7 +124,6 @@ export const ChatItem = ({
   const isImage = !isPDF && fileUrl;
 
   const handleDownload = async (item, type) => {
-    // console.log(item, type);
 
     try {
       const response = await axios.get(item, {
