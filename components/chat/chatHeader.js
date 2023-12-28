@@ -1,11 +1,12 @@
-import { Hash } from "lucide-react";
+import { Hash, Info } from "lucide-react";
 
 import { MobileToggle } from "@/components/theme/mobileToggle";
 import { UserAvatar } from "@/components/Extra/userAvatar";
 import { SocketIndicator } from "@/components/Extra/socketIndicator";
 
 import { ChatVideoButton } from "./chatVideoButton";
-
+import Link from "next/link";
+import { Tooltip } from "@mui/material";
 
 export const ChatHeader = ({ serverId, name, type, imageUrl }) => {
   return (
@@ -22,6 +23,13 @@ export const ChatHeader = ({ serverId, name, type, imageUrl }) => {
         {type === "conversation" && <ChatVideoButton />}
         <SocketIndicator />
       </div>
+      <Tooltip title="About Developer">
+        <Link
+          href="/about"
+        >
+          <Info className="w-5 h-5 ms-2 text-zinc-500 dark:text-zinc-400" />
+        </Link>
+      </Tooltip>
     </div>
   );
 };

@@ -7,7 +7,15 @@ body,
 :root {
   height: 100%;
 }
-
+body::-webkit-scrollbar{
+    width: 0.5rem;
+    scroll-behavior: smooth;
+    background-color:white;
+  }
+  body::-webkit-scrollbar-thumb{
+    background-color:#28e1bf;
+    border-radius: 20px;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
