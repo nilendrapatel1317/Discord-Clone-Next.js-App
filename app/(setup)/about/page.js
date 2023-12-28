@@ -1,14 +1,20 @@
 import { Button } from "@mui/material";
+import { Home } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
 const page = () => {
   return (
-    <section className="relative w-full h-screen mx-auto pt-10" id="about">
+    <section className="relative w-full h-screen mx-auto pt-6" id="about">
+      <Link
+        href="/"
+        className="z-50 absolute top-5 left-5 bg-[#28e1bf] mb-3 block p-2 rounded-full text-white"
+      >
+        <Home size={20} />
+      </Link>
       <div className="max-w-7xl mx-auto sm:px-16 px-6 flex flex-col-reverse sm:flex-row items-start gap-5">
         <div className="sm:w-2/3">
           <div>
-            <Link href="/" className="mb-2 block bg-[#28e1bf] text-white w-fit px-3 py-1 rounded-full">Go Back</Link>
             <p className="sm:text-[18px] text-[14px] underline text-black dark:text-white uppercase tracking-wider">
               About Developer
             </p>
