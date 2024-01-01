@@ -2,7 +2,7 @@ import { Hash } from "lucide-react";
 import { Separator } from "../ui/separator";
 
 export const ChatWelcome = ({ name, type }) => {
-  console.log(name)
+  // console.log(name)
   return (
     <div className="space-y-2 px-4 mb-1">
       {type === "channel" && (
