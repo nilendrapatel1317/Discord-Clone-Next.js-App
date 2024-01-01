@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 import { currentProfile } from "@/lib/currentProfile";
 
 const InviteCodePage = async ({ params }) => {
-  console.log(params);
+  // console.log(params);
 
   // Get the current user's profile
   const profile = await currentProfile();
