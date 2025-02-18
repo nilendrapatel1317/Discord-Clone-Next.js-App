@@ -25,14 +25,14 @@ const page = () => {
           <p className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]">
             Hello & Welcome 🙂
           </p>
-         <p className="mt-4 text-white text-[17px] max-w-3xl leading-[30px]">
+         <p className="mt-4 text-[17px] max-w-3xl leading-[30px]">
           I am a recent graduate with a B.Tech in Computer Science Engineering, currently honing my skills in Java and web 
           development (MERN Stack). I am seeking a challenging role as a Java Developer or Web Developer, where I can 
           apply my academic knowledge and technical skills to contribute eAectively to innovative projects while 
           continuously learning and growing in a dynamic development environment. 
           </p>
-          <p className="mt-4 text-white text-[17px] max-w-3xl leading-[30px]">
-            I'm a <span className="text-primary-500">quick learner</span> and
+          <p className="mt-4 text-[17px] max-w-3xl leading-[30px]">
+            I'm a <span className="text-[#28e1bf]">quick learner</span> and
             collaborate closely with clients to create efficient, scalable, and
             user-friendly solutions that solve real-world problems.
           </p>
