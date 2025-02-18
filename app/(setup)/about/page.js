@@ -25,57 +25,29 @@ const page = () => {
           <p className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]">
             Hello & Welcome 🙂
           </p>
-          <p className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]">
-            As a final-year student, I've cultivated expertise in web
-            development, with a focus on technologies such as HTML, CSS,
-            JavaScript, Next.js, React.js, Node.js, MongoDB, Bootstrap, Tailwind
-            CSS, Material UI, RESTful APIs, and authentication methods using
-            Cleak and Firebase. Even during my academic journey, {" "}
-            <span className="text-[#28e1bf]">
-              My goal is to transition into a Full Stack Web Developer role.
-            </span>
+         <p className="mt-4 text-white text-[17px] max-w-3xl leading-[30px]">
+          I am a recent graduate with a B.Tech in Computer Science Engineering, currently honing my skills in Java and web 
+          development (MERN Stack). I am seeking a challenging role as a Java Developer or Web Developer, where I can 
+          apply my academic knowledge and technical skills to contribute eAectively to innovative projects while 
+          continuously learning and growing in a dynamic development environment. 
           </p>
-          <p className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]">
-            I'm a <span className="text-[#28e1bf]">quick learner</span> and
+          <p className="mt-4 text-white text-[17px] max-w-3xl leading-[30px]">
+            I'm a <span className="text-primary-500">quick learner</span> and
             collaborate closely with clients to create efficient, scalable, and
             user-friendly solutions that solve real-world problems.
           </p>
-          <p className="mt-4 text-[#28e1bf] text-bold dark:text-white text-[25px] max-w-3xl leading-[30px]">
-            Skills I've worked on 👇
-          </p>
-          <p className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]"></p>
-          <div className="mb-5 ps-3 md:ps-10">
-            <ul>
-              <li className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]">
-                <b>Programming Language :</b> JavaScript
-              </li>
-              <li className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]">
-                <b>Front-end Development :</b> HTML , CSS , JavaScript
-              </li>
-              <li className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]">
-                <b>Frameworks :</b> React.JS , Next.JS
-              </li>
-              <li className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]">
-                <b>Back-end Development :</b> JavaScript , Node.JS , Express.JS
-              </li>
-              <li className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]">
-                <b>Database :</b> MongoDB
-              </li>
-              <li className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]">
-                <b>CSS Frameworks :</b> Bootstrap , Tailwind CSS
-              </li>
-              <li className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]">
-                <b>Miscellaneous :</b> RESTful API (Design & Integration),
-                Socket.io , Git & Github, Cleak, Firebase
-              </li>
-            </ul>
-          </div>
           <p className="mt-4 text-[#28e1bf] text-bold dark:text-white text-[25px] max-w-3xl leading-[30px]">
             Contact Details👇
           </p>
           <p className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]"></p>
           <div className="mb-10 ps-3 md:ps-10">
             <ul>
+              <li className="mt-4 text-white text-[17px] max-w-3xl leading-[30px]">
+                <b>My Portfolio :</b>{" "}
+                <Link href="https://nilendrapatel.vercel.app/">
+                  https://nilendrapatel.vercel.app/
+                </Link>
+              </li>
               <li className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]">
                 <b>Email Address :</b> patelnilendra809@gmail.com
               </li>
@@ -99,7 +71,7 @@ const page = () => {
           <div className="flex flex-col items-center gap-3">
             {" "}
             <Button variant="contained" className="!bg-[#28e1bf]">
-              <Link href="/Full Stack Resume 2024.pdf" target="_blank">
+              <Link href="/Nilendra Resume 2024 with photo v3.pdf" target="_blank">
                 Download CV
               </Link>
             </Button>
