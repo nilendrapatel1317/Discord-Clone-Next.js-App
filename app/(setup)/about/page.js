@@ -31,18 +31,13 @@ const page = () => {
           apply my academic knowledge and technical skills to contribute eAectively to innovative projects while 
           continuously learning and growing in a dynamic development environment. 
           </p>
-          <p className="mt-4 text-[17px] max-w-3xl leading-[30px]">
-            I'm a <span className="text-[#28e1bf]">quick learner</span> and
-            collaborate closely with clients to create efficient, scalable, and
-            user-friendly solutions that solve real-world problems.
-          </p>
           <p className="mt-4 text-[#28e1bf] text-bold dark:text-white text-[25px] max-w-3xl leading-[30px]">
             Contact Details👇
           </p>
           <p className="mt-4 text-black dark:text-white text-[17px] max-w-3xl leading-[30px]"></p>
           <div className="mb-10 ps-3 md:ps-10">
             <ul>
-              <li className="mt-4 text-white text-[17px] max-w-3xl leading-[30px]">
+              <li className="mt-4 text-[17px] max-w-3xl leading-[30px]">
                 <b>My Portfolio :</b>{" "}
                 <Link href="https://nilendrapatel.vercel.app/">
                   https://nilendrapatel.vercel.app/
